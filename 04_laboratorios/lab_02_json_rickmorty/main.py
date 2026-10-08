@@ -4,6 +4,7 @@ Este script demuestra:
 - Lectura de archivos JSON con manejo de errores
 - Uso de estructuras de datos (list, dict)
 - Control de flujo (for, if)
+- Filtros y agregaciones
 - Type hints para claridad
 """
 
@@ -23,9 +24,6 @@ def load_characters(path: Path) -> list[dict[str, Any]]:
 
     Returns:
         Lista de diccionarios, uno por personaje. Lista vacía si hay error.
-
-    Raises:
-        No lanza excepciones; las maneja internamente y retorna lista vacía.
     """
     try:
         with path.open(encoding="utf-8") as file:
@@ -40,7 +38,6 @@ def load_characters(path: Path) -> list[dict[str, Any]]:
         print(f"❌ Error: no hay permisos para leer {path}")
         return []
 
-    # La API de Rick and Morty devuelve {"info": {...}, "results": [...]}
     if not isinstance(data, dict) or "results" not in data:
         print("❌ Error: el JSON no tiene la estructura esperada")
         return []
@@ -75,6 +72,36 @@ def show_characters(characters: list[dict[str, Any]]) -> None:
         print(f"{char_id:<5} {name:<25} {status:<10} {species:<15}")
 
 
+def filter_by_status(characters: list[dict[str, Any]], status: str) -> list[dict[str, Any]]:
+    """Filtra los personajes por estado (Alive, Dead, unknown).
+
+    Args:
+        characters: Lista completa de personajes.
+        status: Estado a filtrar (case-insensitive).
+
+    Returns:
+        Lista de personajes cuyo estado coincide.
+    """
+    target = status.lower()
+    return [c for c in characters if c.get("status", "").lower() == target]
+
+
+def count_by_species(characters: list[dict[str, Any]]) -> dict[str, int]:
+    """Cuenta cuántos personajes hay por especie.
+
+    Args:
+        characters: Lista de personajes.
+
+    Returns:
+        Diccionario {especie: cantidad}, ordenado de mayor a menor.
+    """
+    counts: dict[str, int] = {}
+    for c in characters:
+        species = c.get("species", "Desconocida")
+        counts[species] = counts.get(species, 0) + 1
+    return dict(sorted(counts.items(), key=lambda item: item[1], reverse=True))
+
+
 def main() -> None:
     """Punto de entrada del script."""
     print("🚀 Laboratorio 02 — Rick and Morty JSON\n")
@@ -82,6 +109,29 @@ def main() -> None:
 
     characters = load_characters(DATA_FILE)
     show_characters(characters)
+
+    if not characters:
+        return
+
+    # Filtros por estado
+    print("\n" + "=" * 60)
+    print("🔍 Filtros por estado\n")
+
+    alive = filter_by_status(characters, "Alive")
+    dead = filter_by_status(characters, "Dead")
+    unknown = filter_by_status(characters, "unknown")
+
+    print(f"👥 Vivos:        {len(alive)}")
+    print(f"💀 Muertos:      {len(dead)}")
+    print(f"❓ Desconocidos: {len(unknown)}")
+
+    # Conteo por especie
+    print("\n" + "=" * 60)
+    print("📊 Conteo por especie\n")
+
+    species_count = count_by_species(characters)
+    for species, count in species_count.items():
+        print(f"  {species:<20} {count}")
 
 
 if __name__ == "__main__":

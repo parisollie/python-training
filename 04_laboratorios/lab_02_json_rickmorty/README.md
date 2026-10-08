@@ -157,7 +157,7 @@ Salida esperada:
 - [x] Lectura de JSON con manejo de errores
 - [x] Mostrar personajes en tabla
 - [x] Pasar ruff, mypy, pre-commit
-- [ ] Filtros (por estado, especie)
+- [x] Filtros (por estado, especie)
 - [ ] Agregaciones (contar por especie, top episodios)
 - [ ] Pattern matching
 - [ ] Tests con pytest
@@ -167,3 +167,36 @@ Salida esperada:
 - Rick and Morty API — Documentación: https://rickandmortyapi.com/documentation
 - Python docs — json: https://docs.python.org/3/library/json.html
 - Python docs — pathlib: https://docs.python.org/3/library/pathlib.html
+
+## Funciones implementadas
+
+### filter_by_status(characters, status)
+
+Filtra los personajes por estado (case-insensitive).
+
+Ejemplo:
+
+    alive = filter_by_status(characters, "Alive")
+
+### count_by_species(characters)
+
+Cuenta cuantos personajes hay por especie. Devuelve un diccionario ordenado de mayor a menor.
+
+Ejemplo:
+
+    species_count = count_by_species(characters)
+
+## Resultados con los 20 personajes
+
+| Filtro | Cantidad |
+|--------|----------|
+| Vivos | 8 |
+| Muertos | 6 |
+| Desconocidos | 6 |
+| Total | 20 |
+
+| Especie | Cantidad |
+|---------|----------|
+| Human | 15 |
+| Alien | 5 |
+| Total | 20 |
