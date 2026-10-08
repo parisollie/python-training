@@ -10,6 +10,13 @@ packages = [{include = "python_training", from = "src"}]
 python = "^3.12"
 
 [tool.poetry.group.dev.dependencies]
+ruff = "^0.16.10"
+black = "^26.10.0"
+isort = "^9.0.2"
+mypy = "^2.4.0"
+pytest = "^9.1.1"
+pytest-cov = "^7.1.0"
+pre-commit = "^4.6.2"
 
 [build-system]
 requires = ["poetry-core"]
