@@ -102,6 +102,35 @@ def count_by_species(characters: list[dict[str, Any]]) -> dict[str, int]:
     return dict(sorted(counts.items(), key=lambda item: item[1], reverse=True))
 
 
+def classify_character(character: dict[str, Any]) -> str:
+    """Clasifica un personaje segun su estado y especie usando match/case.
+
+    Args:
+        character: Diccionario con datos del personaje.
+
+    Returns:
+        Cadena con la clasificacion legible.
+    """
+    status = character.get("status", "").lower()
+    species = character.get("species", "").lower()
+
+    match (status, species):
+        case ("alive", "human"):
+            return "👨 Vivo humano"
+        case ("alive", "alien"):
+            return "👽 Vivo alien"
+        case ("dead", "human"):
+            return "💀 Muerto humano"
+        case ("dead", "alien"):
+            return "💀 Muerto alien"
+        case ("alive", _):
+            return "💚 Vivo (otra especie)"
+        case ("dead", _):
+            return "💀 Muerto (otra especie)"
+        case _:
+            return "❓ Sin clasificar"
+
+
 def main() -> None:
     """Punto de entrada del script."""
     print("🚀 Laboratorio 02 — Rick and Morty JSON\n")
@@ -132,6 +161,15 @@ def main() -> None:
     species_count = count_by_species(characters)
     for species, count in species_count.items():
         print(f"  {species:<20} {count}")
+
+    # Clasificación con pattern matching (primeros 5)
+    print("\n" + "=" * 60)
+    print("🎯 Clasificación con match/case (primeros 5)\n")
+
+    for char in characters[:5]:
+        name = char.get("name", "Desconocido")
+        classification = classify_character(char)
+        print(f"  {name:<30} {classification}")
 
 
 if __name__ == "__main__":

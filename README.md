@@ -24,9 +24,9 @@ Capacitación completa de Python (Fundamental → Intermediate → Advanced) con
 - [x] Instalación Python, Poetry, Git
 - [x] Configuración Poetry
 - [x] Estructura de carpetas
-- [ ] Archivos base
-- [ ] Primer commit
-- [ ] Configuración VS Code
+- [x] Archivos base
+- [x] Primer commit
+- [x] Configuración VS Code
 
 ## Convenciones de commits
 

@@ -159,7 +159,7 @@ Salida esperada:
 - [x] Pasar ruff, mypy, pre-commit
 - [x] Filtros (por estado, especie)
 - [ ] Agregaciones (contar por especie, top episodios)
-- [ ] Pattern matching
+- [x] Pattern matching
 - [ ] Tests con pytest
 
 ## Referencias
@@ -200,3 +200,107 @@ Ejemplo:
 | Human | 15 |
 | Alien | 5 |
 | Total | 20 |
+
+## Pattern matching con match/case
+
+Funcion `classify_character(character)` que usa `match / case` (Python 3.10+) para clasificar personajes segun su estado y especie.
+
+Reglas:
+
+| Estado | Especie | Clasificacion |
+|--------|---------|---------------|
+| alive | human | Vivo humano |
+| alive | alien | Vivo alien |
+| dead | human | Muerto humano |
+| dead | alien | Muerto alien |
+| alive | otra | Vivo (otra especie) |
+| dead | otra | Muerto (otra especie) |
+| otro | cualquiera | Sin clasificar |
+
+Ejemplo de uso:
+
+    classification = classify_character(character)
+    print(classification)
+
+Ejemplo de salida (primeros 5):
+
+      Rick Sanchez                   Vivo humano
+      Morty Smith                    Vivo humano
+      Summer Smith                   Vivo humano
+      Beth Smith                     Vivo humano
+      Jerry Smith                    Vivo humano
+
+## Probar las funciones individualmente
+
+Para probar cada funcion sin ejecutar el script completo, usa `python -c`.
+
+### Probar filter_by_status
+
+    poetry run python -c "
+    import sys
+    sys.path.insert(0, '04_laboratorios/lab_02_json_rickmorty')
+    from pathlib import Path
+    from main import load_characters, filter_by_status
+    chars = load_characters(Path('04_laboratorios/lab_02_json_rickmorty/data/characters.json'))
+    alive = filter_by_status(chars, 'Alive')
+    print(f'Vivos: {len(alive)}')
+    for c in alive:
+        print(f'  - {c[\"name\"]}')
+    "
+
+Salida esperada:
+
+    Vivos: 8
+      - Rick Sanchez
+      - Morty Smith
+      ...
+
+### Probar count_by_species
+
+    poetry run python -c "
+    import sys
+    sys.path.insert(0, '04_laboratorios/lab_02_json_rickmorty')
+    from pathlib import Path
+    from main import load_characters, count_by_species
+    chars = load_characters(Path('04_laboratorios/lab_02_json_rickmorty/data/characters.json'))
+    counts = count_by_species(chars)
+    for species, n in counts.items():
+        print(f'{species}: {n}')
+    "
+
+Salida esperada:
+
+    Human: 15
+    Alien: 5
+
+### Probar classify_character
+
+    poetry run python -c "
+    import sys
+    sys.path.insert(0, '04_laboratorios/lab_02_json_rickmorty')
+    from pathlib import Path
+    from main import load_characters, classify_character
+    chars = load_characters(Path('04_laboratorios/lab_02_json_rickmorty/data/characters.json'))
+    for c in chars[:5]:
+        print(f'{c[\"name\"]}: {classify_character(c)}')
+    "
+
+Salida esperada:
+
+    Rick Sanchez: 👨 Vivo humano
+    Morty Smith: 👨 Vivo humano
+    Summer Smith: 👨 Vivo humano
+    Beth Smith: 👨 Vivo humano
+    Jerry Smith: 👨 Vivo humano
+
+## Clonar este laboratorio
+
+    git clone https://github.com/parisollie/python-training.git
+    cd python-training
+    poetry install
+
+    # Descargar datos si no existen
+    curl -s "https://rickandmortyapi.com/api/character" -o 04_laboratorios/lab_02_json_rickmorty/data/characters.json
+
+    # Ejecutar
+    poetry run python 04_laboratorios/lab_02_json_rickmorty/main.py
