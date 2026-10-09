@@ -160,7 +160,7 @@ Salida esperada:
 - [x] Filtros (por estado, especie)
 - [ ] Agregaciones (contar por especie, top episodios)
 - [x] Pattern matching
-- [ ] Tests con pytest
+- [x] Tests con pytest
 
 ## Referencias
 
@@ -304,3 +304,41 @@ Salida esperada:
 
     # Ejecutar
     poetry run python 04_laboratorios/lab_02_json_rickmorty/main.py
+
+## Tests con pytest
+
+Se han escrito 26 tests que cubren las 5 funciones del laboratorio.
+
+### Ejecutar todos los tests
+
+    poetry run pytest 04_laboratorios/lab_02_json_rickmorty/tests/ -v
+
+Salida esperada:
+
+    26 passed in 0.01s
+
+### Ejecutar con cobertura
+
+    poetry run pytest 04_laboratorios/lab_02_json_rickmorty/tests/ --cov=04_laboratorios/lab_02_json_rickmorty --cov-report=term-missing
+
+Salida esperada:
+
+    main.py                               93     29    69%
+    tests/test_classify_character.py      14      0   100%
+    tests/test_filters.py                 34      0   100%
+    tests/test_load_characters.py         30      0   100%
+    tests/test_show_characters.py         22      0   100%
+    TOTAL                                193     29    85%
+
+### Ejecutar un archivo de tests especifico
+
+    poetry run pytest 04_laboratorios/lab_02_json_rickmorty/tests/test_filters.py -v
+
+### Archivos de tests
+
+| Archivo | Que cubre | Tests |
+|---------|-----------|-------|
+| test_load_characters.py | load_characters (exito + 4 errores) | 5 |
+| test_show_characters.py | show_characters (vacio, tabla, campos faltantes) | 3 |
+| test_filters.py | filter_by_status y count_by_species | 8 |
+| test_classify_character.py | classify_character (parametrizado) | 10 |
