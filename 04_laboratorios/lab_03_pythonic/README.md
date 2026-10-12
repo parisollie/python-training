@@ -15,11 +15,11 @@ Tres ejercicios prácticos que cubren los temas del Módulo 03:
 lab_03_pythonic/
 ├── README.md              ← este archivo
 ├── retry.py               ← decorador de reintentos
-├── batching.py            ← generador por lotes (pendiente)
+├── batching.py            ← generador por lotes
 ├── timer.py               ← context manager de temporización (pendiente)
 └── tests/
     ├── test_retry.py      ← 9 tests
-    ├── test_batching.py   ← pendiente
+    ├── test_batching.py   ← 11 tests
     └── test_timer.py      ← pendiente
 
 ## Instalación
@@ -97,6 +97,65 @@ Salida esperada:
     ❌ Se agotaron los 2 intentos.
     Excepción final: boom
 
+## Ejercicio 2 — Generador por lotes (batching)
+
+### Uso
+
+    import sys
+    sys.path.insert(0, '04_laboratorios/lab_03_pythonic')
+    from batching import batch
+
+    for lote in batch([1, 2, 3, 4, 5], size=2):
+        print(lote)
+    # [1, 2]
+    # [3, 4]
+    # [5]
+
+### Parámetros
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| iterable | Iterable[T] | Cualquier iterable (lista, generador, string, etc.) |
+| size | int | Tamaño de cada lote. Debe ser >= 1 |
+
+### Ejemplo: varios casos
+
+    poetry run python -c "
+    import sys
+    sys.path.insert(0, '04_laboratorios/lab_03_pythonic')
+    from batching import batch
+
+    # Lote exacto
+    print(list(batch([1, 2, 3, 4, 5, 6], size=3)))
+
+    # Último lote parcial
+    print(list(batch([1, 2, 3, 4, 5, 6, 7], size=3)))
+
+    # Iterable vacío
+    print(list(batch([], size=3)))
+
+    # Con generador (lazy)
+    def contar(n):
+        yield from range(1, n + 1)
+
+    print(list(batch(contar(7), size=3)))
+    "
+
+Salida esperada:
+
+    [[1, 2, 3], [4, 5, 6]]
+    [[1, 2, 3], [4, 5, 6], [7]]
+    []
+    [[1, 2, 3], [4, 5, 6], [7]]
+
+### Notas de implementación
+
+- Es un **generador** (usa `yield`), por lo que no carga todo en memoria.
+- Usa la **sintaxis moderna de genéricos** de Python 3.12 (PEP 695): `def batch[T](...)`.
+- El último lote puede ser más pequeño que `size`.
+- Si `size < 1`, lanza `ValueError`.
+- Funciona con cualquier iterable: listas, tuplas, generadores, strings, archivos.
+
 ## Cómo ejecutar los tests
 
 ### Todos los tests
@@ -105,7 +164,7 @@ Salida esperada:
 
 Salida esperada:
 
-    9 passed in 0.42s
+    20 passed in 0.43s
 
 ### Con cobertura
 
@@ -114,6 +173,15 @@ Salida esperada:
 ### Solo un archivo
 
     poetry run pytest 04_laboratorios/lab_03_pythonic/tests/test_retry.py -v
+    poetry run pytest 04_laboratorios/lab_03_pythonic/tests/test_batching.py -v
+
+### Archivos de tests
+
+| Archivo | Qué cubre | Tests |
+|---------|-----------|-------|
+| test_retry.py | retry (éxito, fallos, validaciones, backoff) | 9 |
+| test_batching.py | batch (lotes, lazy, edge cases) | 11 |
+| test_timer.py | timer (pendiente) | — |
 
 ## Verificación de calidad
 
@@ -136,7 +204,7 @@ Salida esperada:
 ## Estado
 
 - [x] Ejercicio 1: Decorador de reintentos
-- [ ] Ejercicio 2: Generador por lotes
+- [x] Ejercicio 2: Generador por lotes
 - [ ] Ejercicio 3: Context manager de temporización
 - [ ] README completo al final
 
@@ -154,3 +222,5 @@ Salida esperada:
 - Python docs — Decoradores: https://docs.python.org/3/glossary.html#term-decorator
 - functools.wraps: https://docs.python.org/3/library/functools.html#functools.wraps
 - PEP 318 — Decorators: https://peps.python.org/pep-0318/
+- PEP 695 — Type Parameter Syntax: https://peps.python.org/pep-0695/
+- Python docs — Generadores: https://docs.python.org/3/tutorial/classes.html#generators
