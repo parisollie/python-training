@@ -16,11 +16,11 @@ lab_03_pythonic/
 ├── README.md              ← este archivo
 ├── retry.py               ← decorador de reintentos
 ├── batching.py            ← generador por lotes
-├── timer.py               ← context manager de temporización (pendiente)
+├── timer.py               ← context manager de temporización
 └── tests/
     ├── test_retry.py      ← 9 tests
     ├── test_batching.py   ← 11 tests
-    └── test_timer.py      ← pendiente
+    └── test_timer.py      ← 7 tests
 
 ## Instalación
 
@@ -156,6 +156,56 @@ Salida esperada:
 - Si `size < 1`, lanza `ValueError`.
 - Funciona con cualquier iterable: listas, tuplas, generadores, strings, archivos.
 
+## Ejercicio 3 — Context manager de temporización
+
+### Uso
+
+    import sys
+    sys.path.insert(0, '04_laboratorios/lab_03_pythonic')
+    from timer import timer
+
+    with timer() as t:
+        sum(range(1_000_000))
+
+    print(f"Elapsed: {t.elapsed:.4f}s")
+
+### Parámetros
+
+| Parámetro | Tipo | Descripción | Default |
+|-----------|------|-------------|---------|
+| verbose | bool | Si True, imprime la duración al salir | True |
+
+### Ejemplo: verbose y silencioso
+
+    poetry run python -c "
+    import sys
+    sys.path.insert(0, '04_laboratorios/lab_03_pythonic')
+    from timer import timer
+
+    # Modo verbose (default): imprime la duración
+    with timer() as t:
+        sum(range(1_000_000))
+    print(f'Acceso desde fuera: {t.elapsed:.4f}s')
+
+    # Modo silencioso
+    with timer(verbose=False) as t:
+        sum(range(100_000))
+    print(f'Silencioso: {t.elapsed:.4f}s')
+    "
+
+Salida esperada (los tiempos varían):
+
+    ⏱️  Duración: 0.0065s
+    Acceso desde fuera: 0.0065s
+    Silencioso: 0.0007s
+
+### Notas de implementación
+
+- Usa `@contextmanager` de `contextlib`.
+- El `try/finally` garantiza que la duración se calcule **aunque haya una excepción** dentro del bloque.
+- Usa `time.perf_counter()` (reloj de mayor resolución).
+- El objeto `TimerResult` expone `elapsed` para consultarlo después del `with`.
+
 ## Cómo ejecutar los tests
 
 ### Todos los tests
@@ -164,7 +214,7 @@ Salida esperada:
 
 Salida esperada:
 
-    20 passed in 0.43s
+    27 passed in 0.61s
 
 ### Con cobertura
 
@@ -174,6 +224,7 @@ Salida esperada:
 
     poetry run pytest 04_laboratorios/lab_03_pythonic/tests/test_retry.py -v
     poetry run pytest 04_laboratorios/lab_03_pythonic/tests/test_batching.py -v
+    poetry run pytest 04_laboratorios/lab_03_pythonic/tests/test_timer.py -v
 
 ### Archivos de tests
 
@@ -181,7 +232,7 @@ Salida esperada:
 |---------|-----------|-------|
 | test_retry.py | retry (éxito, fallos, validaciones, backoff) | 9 |
 | test_batching.py | batch (lotes, lazy, edge cases) | 11 |
-| test_timer.py | timer (pendiente) | — |
+| test_timer.py | timer (medición, verbose, excepciones, anidados) | 7 |
 
 ## Verificación de calidad
 
@@ -205,8 +256,8 @@ Salida esperada:
 
 - [x] Ejercicio 1: Decorador de reintentos
 - [x] Ejercicio 2: Generador por lotes
-- [ ] Ejercicio 3: Context manager de temporización
-- [ ] README completo al final
+- [x] Ejercicio 3: Context manager de temporización
+- [x] README completo al final
 
 ## Clonar este laboratorio
 
@@ -224,3 +275,5 @@ Salida esperada:
 - PEP 318 — Decorators: https://peps.python.org/pep-0318/
 - PEP 695 — Type Parameter Syntax: https://peps.python.org/pep-0695/
 - Python docs — Generadores: https://docs.python.org/3/tutorial/classes.html#generators
+- contextlib — Utilities for with-statement contexts: https://docs.python.org/3/library/contextlib.html
+- time.perf_counter: https://docs.python.org/3/library/time.html#time.perf_counter
