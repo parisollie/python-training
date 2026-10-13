@@ -60,3 +60,6 @@ logs/
 
 # Laboratorios - output generado
 04_laboratorios/*/output/
+
+# Laboratorio 07 - archivos descargados
+04_laboratorios/lab_07_http/downloads/
