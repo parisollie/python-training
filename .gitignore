@@ -57,3 +57,6 @@ htmlcov/
 logs/
 *.db
 *.sqlite3
+
+# Laboratorios - output generado
+04_laboratorios/*/output/
