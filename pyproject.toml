@@ -8,10 +8,15 @@ packages = [{include = "python_training", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-pydantic = "^2.14.1"
+pydantic = {extras = ["email"], version = "^2.14.1"}
 httpx = "^0.28.1"
 sqlalchemy = "^2.1.4"
 alembic = "^1.20.0"
+fastapi = "^0.143.1"
+uvicorn = {version = "^0.54.0", extras = ["standard"]}
+python-jose = {extras = ["cryptography"], version = "^3.5.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-multipart = "^0.0.32"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.16.10"
@@ -21,6 +26,7 @@ mypy = "^2.4.0"
 pytest = "^9.1.1"
 pytest-cov = "^7.1.0"
 pre-commit = "^4.6.2"
+types-python-jose = "^3.5.0.20260408"
 
 [build-system]
 requires = ["poetry-core"]
