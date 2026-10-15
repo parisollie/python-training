@@ -63,3 +63,7 @@ logs/
 
 # Laboratorio 07 - archivos descargados
 04_laboratorios/lab_07_http/downloads/
+
+# Laboratorio 14 - modelos entrenados
+04_laboratorios/lab_14_data_science/models/*.joblib
+04_laboratorios/lab_14_data_science/models/*.pkl

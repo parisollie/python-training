@@ -1,0 +1,101 @@
+id,name,species,origin,episodes_count,has_powers,status
+1,Rick Sanchez,Human,Earth (C-137),51,1,Alive
+2,Morty Smith,Human,Earth (C-137),51,0,Alive
+3,Summer Smith,Human,Earth (C-137),42,0,Alive
+4,Beth Smith,Human,Earth (C-137),32,0,Alive
+5,Jerry Smith,Human,Earth (C-137),39,0,Alive
+6,Abadango Cluster Princess,Alien,Abadango,1,1,Alive
+7,Abradolf Lincler,Human,Earth (C-137),1,1,unknown
+8,Adjudicator Rick,Human,unknown,1,1,Dead
+9,Agency Director,Human,Earth (C-137),1,0,Dead
+10,Alan Rails,Human,unknown,1,1,Dead
+11,Albert Einstein,Human,Earth (C-137),1,0,Dead
+12,Alexander,Human,Earth (C-137),1,0,Dead
+13,Alien Googah,Alien,unknown,1,0,unknown
+14,Alien Morty,Alien,unknown,1,0,unknown
+15,Alien Rick,Alien,unknown,1,1,unknown
+16,Amish Cyborg,Alien,Earth (C-137),1,1,Dead
+17,Annie,Human,Earth (C-137),1,0,Alive
+18,Antenna Morty,Human,Earth (C-137),2,1,Alive
+19,Antenna Rick,Human,Earth (C-137),1,1,unknown
+20,Ants in my Eyes Johnson,Human,Earth (C-137),1,1,unknown
+21,Bethany Shadow,Human,Earth (C-137),1,0,Dead
+22,Birdperson,Alien,Bird World,8,1,Dead
+23,Brad,Human,Earth (C-137),4,0,Alive
+24,Beth's Father,Human,Earth (C-137),1,0,Alive
+25,Bill,Human,Earth (C-137),1,0,Dead
+26,Centaur,Alien,unknown,1,0,Alive
+27,Chris,Human,Earth (C-137),1,0,Alive
+28,Civilian Rick,Human,Earth (C-137),1,0,Dead
+29,Coach Feratu,Alien,unknown,1,1,Dead
+30,Cronenberg Rick,Human,Cronenberg World,2,1,unknown
+31,Cronenberg Morty,Human,Cronenberg World,2,0,unknown
+32,Daron Jefferson,Human,Earth (C-137),1,0,Dead
+33,Davin,Human,Earth (C-137),1,0,Alive
+34,Diablo Verde,Alien,unknown,1,1,Dead
+35,Dorian 5,Human,Earth (C-137),1,0,Dead
+36,Dr. Wong,Human,Earth (C-137),3,0,Alive
+37,Duck Soldier,Alien,unknown,1,1,Dead
+38,Eli,Human,Earth (C-137),1,0,Alive
+39,Eric McManus,Human,Earth (C-137),1,0,Dead
+40,Ernest,Human,Earth (C-137),1,0,Alive
+41,Ethan,Human,Earth (C-137),1,0,Alive
+42,Evil Morty,Human,Earth (C-137),10,1,Alive
+43,Evil Rick,Human,unknown,1,1,Dead
+44,Fast Morty,Human,unknown,1,0,Alive
+45,Father Bob,Human,Earth (C-137),1,0,Alive
+46,Ferris Wheel,Alien,unknown,1,0,Dead
+47,Frank Palicky,Human,Earth (C-137),1,0,Dead
+48,Frankenstein,Alien,unknown,1,0,Dead
+49,Gary,Human,Earth (C-137),1,0,Alive
+50,Gearhead,Human,Earth (C-137),4,1,Alive
+51,Gene,Human,Earth (C-137),3,0,Alive
+52,George,Human,Earth (C-137),1,0,Alive
+53,Giant Cat,Alien,unknown,1,0,Dead
+54,Giant Incest Baby,Human,unknown,1,0,Dead
+55,Glasses Morty,Human,Earth (C-137),1,0,Alive
+56,Glock,Alien,unknown,1,1,Dead
+57,Gobo,Alien,unknown,1,0,Alive
+58,Greasy Grandma,Human,Earth (C-137),1,0,Alive
+59,Hadrian,Human,Earth (C-137),1,0,Dead
+60,Hammerhead Morty,Human,Earth (C-137),1,0,Alive
+61,Harold,Human,Earth (C-137),1,0,Alive
+62,Herbert,Human,Earth (C-137),1,0,Alive
+63,Hercules,Human,unknown,1,1,Dead
+64,Hirogen,Alien,unknown,1,0,Dead
+65,Howard,Human,Earth (C-137),3,0,Dead
+66,Hunter,Human,Earth (C-137),1,0,Alive
+67,Ice-T,Human,Earth (C-137),1,0,Alive
+68,Insurance Rick,Human,Earth (C-137),1,0,Dead
+69,Jack,Human,Earth (C-137),1,0,Alive
+70,Jacob,Human,Earth (C-137),1,0,Alive
+71,Jaguar,Human,unknown,1,1,Alive
+72,Jenny,Human,Earth (C-137),1,0,Alive
+73,Jessica,Human,Earth (C-137),4,0,Alive
+74,Jessica's Mom,Human,Earth (C-137),1,0,Alive
+75,Jessica's Dad,Human,Earth (C-137),1,0,Alive
+76,John,Human,Earth (C-137),1,0,Alive
+77,Johnny Depp,Human,Earth (C-137),1,0,Dead
+78,Joseph,Human,Earth (C-137),1,0,Alive
+79,Joyce,Human,Earth (C-137),1,0,Alive
+80,Karen,Human,Earth (C-137),1,0,Alive
+81,Kathleen,Human,Earth (C-137),1,0,Alive
+82,Kevin,Human,Earth (C-137),1,0,Alive
+83,Krombopulos Michael,Alien,unknown,1,1,Dead
+84,Kyle,Human,Earth (C-137),1,0,Alive
+85,Leonard,Human,Earth (C-137),1,0,Dead
+86,Liam,Human,Earth (C-137),1,0,Alive
+87,Logan,Human,Earth (C-137),1,0,Alive
+88,Lucy,Human,Earth (C-137),1,0,Alive
+89,Matt,Human,Earth (C-137),1,0,Alive
+90,Mega Fruit Farmer Rick,Human,Earth (C-137),1,0,Alive
+91,Melissa,Human,Earth (C-137),1,0,Alive
+92,Miles Knightly,Human,Earth (C-137),1,0,Dead
+93,Morty's Teacher,Human,Earth (C-137),1,0,Alive
+94,Mrs. Pancakes,Human,Earth (C-137),1,0,Alive
+95,Mr. Goldenfold,Human,Earth (C-137),4,0,Alive
+96,Mr. Meeseeks,Alien,unknown,1,1,Dead
+97,Nancy,Human,Earth (C-137),1,0,Alive
+98,Nathan,Human,Earth (C-137),1,0,Alive
+99,Nick,Human,Earth (C-137),1,0,Alive
+100,Noob-Noob,Alien,unknown,1,0,Alive
