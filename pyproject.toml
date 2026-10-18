@@ -46,6 +46,9 @@ build-backend = "poetry.core.masonry.api"
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+exclude = [
+    "05_proyecto_final/rickmorty_orders/alembic/versions/",
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM"]
@@ -63,6 +66,9 @@ python_version = "3.12"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
+exclude = [
+    "^05_proyecto_final/rickmorty_orders/alembic/versions/",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["04_laboratorios", "05_proyecto_final"]

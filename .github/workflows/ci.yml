@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Ruff lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Poetry
+        run: pipx install poetry==2.5.1
+      - name: Install dependencies
+        run: poetry install --with dev
+      - name: Ruff
+        run: poetry run ruff check 05_proyecto_final/rickmorty_orders/
+
+  typecheck:
+    name: mypy typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Poetry
+        run: pipx install poetry==2.5.1
+      - name: Install dependencies
+        run: poetry install --with dev
+      - name: mypy
+        run: poetry run mypy 05_proyecto_final/rickmorty_orders/
+
+  test:
+    name: pytest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Poetry
+        run: pipx install poetry==2.5.1
+      - name: Install dependencies
+        run: poetry install --with dev
+      - name: Run tests with coverage
+        run: |
+          poetry run pytest 05_proyecto_final/rickmorty_orders/tests/ \
+            --cov=05_proyecto_final/rickmorty_orders/src/rickmorty_orders \
+            --cov-report=term-missing \
+            --cov-report=xml
+
+  build:
+    name: Docker build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -f 05_proyecto_final/rickmorty_orders/Dockerfile -t rickmorty-orders:ci .

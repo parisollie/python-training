@@ -142,8 +142,8 @@ rickmorty_orders/
 | 3 | Aplicación: casos de uso + DTOs | ✅ Completada |
 | 4 | Infraestructura: SQLAlchemy, httpx, FastAPI | ✅ Completada |
 | 5 | Testing: unit + contract + integration + e2e | ✅ Completada |
-| 6 | Alembic + Docker + CI/CD | 🔄 Siguiente |
-| 7 | Auditoría + presentación | ⬜ Pendiente |
+| 6 | Alembic + Docker + CI/CD | ✅ Completada |
+| 7 | Auditoría + presentación | 🔄 Siguiente |
 
 ## Estado actual
 
@@ -202,12 +202,26 @@ rickmorty_orders/
 - pytest: 130 tests pasando
 - Cobertura: 93%
 
+**Alembic + Docker + CI/CD (FASE 6)**
+- Alembic configurado (`alembic/env.py` conectado a Base + Settings)
+- Migracion inicial `74a558816f76` (orders + order_items) aplicada
+- `init_db()` refactorizado (no-op, las tablas las crea Alembic)
+- `.dockerignore` (excluye tests, .venv, etc.)
+- `Dockerfile` multistage (builder + runtime), usuario non-root `app`
+- `RMO_DATABASE_URL=sqlite:////app/data/rickmorty_orders.db` en el contenedor
+- `CMD` ejecuta `alembic upgrade head && uvicorn` al arrancar
+- HEALTHCHECK con urllib cada 30s
+- Imagen: 662 MB (137 MB comprimida)
+- Contenedor probado end-to-end (crea ordenes contra la API real)
+- `.github/workflows/ci.yml`: lint + typecheck + test + build
+- `.env.example` con placeholders (RMO_*)
+
 ### Siguiente
 
-**FASE 6: Alembic + Docker + CI/CD**
-- Alembic (init + migracion inicial + upgrade)
-- Dockerfile multistage
-- GitHub Actions (lint + typecheck + tests + build)
+**FASE 7: Auditoria + presentacion**
+- pip-audit / safety
+- README final con diagramas
+- Presentacion del proyecto
 
 ## Modelo de dominio (borrador)
 
@@ -476,13 +490,138 @@ Tipos de tests (piramide):
 | Integration | 9 | ~3s | httpx.MockTransport |
 | E2E | 18 | ~0.2s | TestClient + SQLite memoria |
 
-## Docker (cuando esté listo)
+## Alembic (migraciones)
 
-    # Construir
-    docker build -t rickmorty-orders:latest .
+El proyecto usa Alembic para migraciones reproducibles.
 
-    # Ejecutar
-    docker run -p 8000:8000 rickmorty-orders:latest
+    # Aplicar migraciones
+    cd 05_proyecto_final/rickmorty_orders
+    poetry run alembic upgrade head
+    cd ../..
+
+    # Ver version actual
+    cd 05_proyecto_final/rickmorty_orders
+    poetry run alembic current
+    cd ../..
+
+    # Crear nueva migracion (tras cambiar orm_models.py)
+    cd 05_proyecto_final/rickmorty_orders
+    poetry run alembic revision --autogenerate -m "descripcion del cambio"
+    cd ../..
+
+    # Retroceder 1 migracion
+    cd 05_proyecto_final/rickmorty_orders
+    poetry run alembic downgrade -1
+    cd ../..
+
+Migracion actual: `74a558816f76` (initial schema: orders and order_items).
+
+## Docker
+
+### Construir la imagen
+
+Desde la RAIZ del repo:
+
+    docker build -f 05_proyecto_final/rickmorty_orders/Dockerfile -t rickmorty-orders:latest .
+
+La imagen es **multistage** (builder + runtime) y corre como **usuario no-root** (`app`).
+
+Tamano: ~662 MB (137 MB comprimida).
+
+### Ejecutar el contenedor
+
+    docker run -d --name rickmorty -p 8001:8000 rickmorty-orders:latest
+
+El contenedor:
+- Ejecuta `alembic upgrade head` al arrancar (migraciones automaticas)
+- Expone en `http://localhost:8001`
+- Tiene HEALTHCHECK cada 30s
+- Persiste la DB SQLite en `/app/data/rickmorty_orders.db` (dentro del contenedor)
+
+Probar el flujo completo (desde otra terminal):
+
+    # 1. Health check
+    curl http://localhost:8001/health
+
+    # 2. Crear una orden (consulta la API real de Rick and Morty)
+    curl -X POST http://localhost:8001/orders/ \
+      -H "Content-Type: application/json" \
+      -d '{"customer_email": "paul@example.com", "items": [{"character_id": 1, "quantity": 1}]}'
+
+    # 3. IMPORTANTE: en la respuesta, COPIA el valor de "id"
+    #    (es un UUID como "883e3787-a8e8-4d22-831e-b4a94d72be3d")
+    #    Luego exportalo en la terminal:
+    ORDER_ID="AQUI-PEGA-EL-ID-QUE-COPIASTE"
+
+    #    Verifica que quedo bien:
+    echo "ORDER_ID=$ORDER_ID"
+
+    # 4. Listar ordenes
+    curl http://localhost:8001/orders/
+
+    # 5. Obtener una orden por id
+    curl http://localhost:8001/orders/$ORDER_ID
+
+    # 6. Confirmar la orden
+    curl -X PATCH http://localhost:8001/orders/$ORDER_ID/confirm
+
+    # 7. Cancelar la orden
+    curl -X PATCH "http://localhost:8001/orders/$ORDER_ID/cancel?reason=test"
+
+    # 8. Ver documentacion interactiva
+    # Abrir http://localhost:8001/docs en el navegador
+
+### Ver logs del contenedor
+
+    docker logs rickmorty
+    docker logs -f rickmorty   # seguir en tiempo real (Ctrl+C para salir)
+
+### Detener y eliminar
+
+    docker stop rickmorty
+    docker rm rickmorty
+
+### Reconstruir tras cambios
+
+Si modificas el codigo y quieres reconstruir la imagen:
+
+    docker stop rickmorty
+    docker rm rickmorty
+    docker build -f 05_proyecto_final/rickmorty_orders/Dockerfile -t rickmorty-orders:latest .
+    docker run -d --name rickmorty -p 8001:8000 rickmorty-orders:latest
+
+## CI/CD (GitHub Actions)
+
+Workflow en `.github/workflows/ci.yml`:
+
+- **lint**: `ruff check`
+- **typecheck**: `mypy`
+- **test**: `pytest` con cobertura
+- **build**: `docker build`
+
+Se ejecuta en:
+- Cada `push` a `main`
+- Cada `pull_request` a `main`
+
+Ver estado en: https://github.com/parisollie/python-training/actions
+
+## Variables de entorno
+
+Copia `.env.example` a `.env` y ajusta:
+
+    cp 05_proyecto_final/rickmorty_orders/.env.example 05_proyecto_final/rickmorty_orders/.env
+
+Variables (todas con prefijo `RMO_`):
+
+| Variable | Default | Descripcion |
+|----------|---------|-------------|
+| RMO_ENVIRONMENT | development | development / staging / production |
+| RMO_DEBUG | true | Modo debug |
+| RMO_DATABASE_URL | sqlite:///./rickmorty_orders.db | URL de la DB |
+| RMO_RICKMORTY_API_URL | https://rickandmortyapi.com/api | API externa |
+| RMO_SECRET_KEY | cambiar-en-produccion | JWT secret (futuro) |
+
+**NUNCA** commitear `.env` con valores reales. Ya esta en `.gitignore`.
 
 ## Criterios de éxito (rúbrica)
 

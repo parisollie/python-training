@@ -1,0 +1,59 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtualenv
+.venv/
+venv/
+env/
+ENV/
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+
+# Local DB
+*.db
+*.sqlite3
+
+# Local env
+.env
+.env.local
+
+# Alembic (mantenemos alembic.ini y alembic/ para migraciones en runtime)
+# Pero excluimos __pycache__ dentro de alembic
+alembic/versions/__pycache__/
+
+# Documentacion que no necesita el runtime
+README.md
+*.md
+
+# CI
+.github/

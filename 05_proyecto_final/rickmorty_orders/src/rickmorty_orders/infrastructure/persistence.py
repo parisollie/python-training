@@ -82,15 +82,16 @@ def get_db() -> Generator[Session, None, None]:
 
 
 def init_db(engine: Engine | None = None) -> None:
-    """Crea todas las tablas en la base de datos.
+    """Inicializa la base de datos (solo importa modelos).
 
     Args:
-        engine: engine opcional. Si no se provee, usa el global.
+        engine: engine opcional (no se usa, se mantiene por compatibilidad).
 
-    Nota: en produccion, usar Alembic en lugar de create_all.
+    Nota: las tablas se crean via Alembic (alembic upgrade head).
+    Esta funcion es un no-op que asegura que los modelos esten importados
+    (util para que Base.metadata tenga todas las tablas registradas).
     """
     # Importar modelos para que Base los conozca
     from rickmorty_orders.infrastructure import orm_models  # noqa: F401
 
-    target = engine or get_engine()
-    Base.metadata.create_all(bind=target)
+    _ = engine  # parametro mantenido por compatibilidad
