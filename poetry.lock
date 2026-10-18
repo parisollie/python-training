@@ -2123,6 +2123,31 @@ files = [
 typing-extensions = ">=4.16.0"
 
 [[package]]
+name = "pydantic-settings"
+version = "2.16.0"
+description = "Settings management using Pydantic"
+optional = false
+python-versions = ">=3.11"
+groups = ["main"]
+files = [
+    {file = "pydantic_settings-2.16.0-py3-none-any.whl", hash = "sha256:7e73acf7f61936a15e5a3b6eedaea29f133357faf7272f2607ba479b049dd7f2"},
+    {file = "pydantic_settings-2.16.0.tar.gz", hash = "sha256:5b6c578049ede4db0e2ef3b4eaa4ad4069cfa9211f83fb38df899dfade50a614"},
+]
+
+[package.dependencies]
+pydantic = ">=2.7.0"
+python-dotenv = ">=1.2.2"
+typing-extensions = ">=4.0.0"
+typing-inspection = ">=0.4.0"
+
+[package.extras]
+aws-secrets-manager = ["boto3 (>=1.35.0)"]
+aws-systems-manager = ["boto3 (>=1.35.0)"]
+azure-key-vault = ["azure-identity (>=1.16.0)", "azure-keyvault-secrets (>=4.8.0)"]
+gcp-secret-manager = ["google-cloud-secret-manager (>=2.23.1)"]
+yaml = ["pyyaml (>=6.0.1)"]
+
+[[package]]
 name = "pygments"
 version = "2.21.0"
 description = "Pygments is a syntax highlighting package written in Python."
@@ -3163,4 +3188,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "86ca5e9028b6c67f6fff4f2eee2ad7175ab5b7022a9d194eaebe4485edcee19b"
+content-hash = "e49a806e99ace520435888e4190e744cc3fd099fe5c8ad7793ffce28da219f07"

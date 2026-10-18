@@ -140,8 +140,8 @@ rickmorty_orders/
 | 1 | Setup: estructura + README | ✅ Completada |
 | 2 | Dominio: entidades, VOs, puertos, eventos | ✅ Completada |
 | 3 | Aplicación: casos de uso + DTOs | ✅ Completada |
-| 4 | Infraestructura: SQLAlchemy, httpx, FastAPI | 🔄 Siguiente |
-| 5 | Testing: unit + contract + integration + e2e | ⬜ Pendiente |
+| 4 | Infraestructura: SQLAlchemy, httpx, FastAPI | ✅ Completada |
+| 5 | Testing: unit + contract + integration + e2e | 🔄 Siguiente |
 | 6 | Alembic + Docker + CI/CD | ⬜ Pendiente |
 | 7 | Auditoría + presentación | ⬜ Pendiente |
 
@@ -160,24 +160,38 @@ rickmorty_orders/
 - DTOs: `CreateOrderInput`, `OrderOutput`, `OrderItemInput`, `OrderItemOutput`
 - Casos de uso:
   - `CreateOrderService` (consulta personajes, calcula precios, crea orden)
-  - `GetOrderService` (obtener por id)
-  - `ListOrdersService` (listar por cliente o todas)
-  - `ConfirmOrderService` (pending -> confirmed)
-  - `CancelOrderService` (pending/confirmed -> cancelled)
+  - `GetOrderService`, `ListOrdersService`, `ConfirmOrderService`, `CancelOrderService`
 - Adaptadores en memoria (para desarrollo y tests)
+
+**Infraestructura (FASE 4)**
+- `config.py`: Settings con pydantic-settings (env vars con prefijo `RMO_`)
+- `persistence.py`: SQLAlchemy engine + SessionLocal + Base + get_db
+- `orm_models.py`: OrderModel, OrderItemModel (SQLAlchemy 2.0)
+- `sql_repositories.py`: SQLOrderRepository (implementa el puerto)
+- `rickmorty_client.py`: RickMortyApiClient (httpx + retry + timeout)
+- `console_notifier.py`: ConsoleNotifier
+- `event_bus.py`: InMemoryEventBus
+- `dependencies.py`: wiring de FastAPI (get_*_service)
+- `api_orders.py`: router de orders (5 endpoints)
+- `api_health.py`: router de health (2 endpoints)
+- `api_app.py`: app FastAPI + CORS + lifespan
+
+**API funcionando end-to-end**
+- 7 endpoints probados contra la API real de Rick and Morty
+- Persistencia en SQLite
+- Crear, listar, obtener, confirmar y cancelar ordenes
 
 **Calidad**
 - ruff: sin errores
-- mypy strict: sin errores
-- 20 archivos Python verificados
+- mypy strict: sin errores (31 archivos)
 
 ### Siguiente
 
-**FASE 4: Infraestructura**
-- SQLAlchemy (OrderRepository)
-- httpx (CharacterRepository contra la API real)
-- FastAPI (routers, dependencias, JWT)
-- pydantic-settings (configuracion)
+**FASE 5: Testing**
+- Unit tests (dominio puro)
+- Contract tests (adaptadores cumplen puertos)
+- Integration tests (SQLite en memoria, httpx MockTransport)
+- E2E tests (TestClient)
 
 ## Modelo de dominio (borrador)
 
@@ -211,42 +225,73 @@ rickmorty_orders/
 - OrderConfirmed
 - OrderCancelled
 
-## Endpoints planeados (FastAPI)
+## Endpoints disponibles (FastAPI)
 
 | Método | Ruta | Descripción |
 |--------|------|-------------|
-| GET | /health | Health check |
-| GET | /characters/{id} | Consulta a la API R&M (proxy) |
-| POST | /orders | Crear una orden |
-| GET | /orders | Listar órdenes del usuario |
-| GET | /orders/{id} | Obtener una orden |
-| PATCH | /orders/{id}/confirm | Confirmar |
-| PATCH | /orders/{id}/cancel | Cancelar |
+| GET | `/` | Root |
+| GET | `/health` | Health check |
+| POST | `/orders/` | Crear orden |
+| GET | `/orders/` | Listar ordenes (filtro opcional `?customer_email=`) |
+| GET | `/orders/{id}` | Obtener orden por id |
+| PATCH | `/orders/{id}/confirm` | Confirmar (pending -> confirmed) |
+| PATCH | `/orders/{id}/cancel` | Cancelar (pending/confirmed -> cancelled) |
 
-## Cómo se ejecutará (cuando esté listo)
+Documentacion interactiva:
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
 
-    # Instalar dependencias
-    poetry install
+## Cómo ejecutar la API
 
-    # Aplicar migraciones
-    poetry run alembic upgrade head
+Requisitos:
+- Haber corrido `poetry install` desde la raiz del repo
 
-    # Arrancar servidor de desarrollo
-    poetry run uvicorn rickmorty_orders.infrastructure.api.app:app --reload
+Arrancar el servidor:
 
-    # Abrir documentación
-    # http://localhost:8000/docs
+    cd 05_proyecto_final/rickmorty_orders
+    poetry run uvicorn rickmorty_orders.infrastructure.api_app:app --reload --port 8000
+    # Abrir http://localhost:8000/docs
+    # Detener con Ctrl+C
 
-## Testing (cuando esté listo)
+Probar con curl (desde otra terminal):
+
+    # Health check
+    curl http://localhost:8000/health
+
+    # Crear orden
+    curl -X POST http://localhost:8000/orders/ \
+      -H "Content-Type: application/json" \
+      -d '{"customer_email": "paul@example.com", "items": [{"character_id": 1, "quantity": 1}]}'
+
+    # Listar ordenes
+    curl http://localhost:8000/orders/
+
+    # Confirmar (usar el id devuelto por POST)
+    curl -X PATCH http://localhost:8000/orders/{ID}/confirm
+
+    # Cancelar
+    curl -X PATCH "http://localhost:8000/orders/{ID}/cancel?reason=test"
+
+Configuracion via variables de entorno (prefijo RMO_):
+
+    RMO_ENVIRONMENT=production RMO_DEBUG=false poetry run uvicorn ...
+
+    # Ver todas las variables: ver src/rickmorty_orders/infrastructure/config.py
+
+## Testing
+
+> Tests pendientes (FASE 5). Los comandos ya estan preparados:
 
     # Todos los tests
-    poetry run pytest tests/ -v
+    poetry run pytest 05_proyecto_final/rickmorty_orders/tests/ -v
 
-    # Solo unit
-    poetry run pytest tests/unit/ -v
+    # Solo unit (dominio puro)
+    poetry run pytest 05_proyecto_final/rickmorty_orders/tests/unit/ -v
 
     # Con cobertura
-    poetry run pytest tests/ --cov=src/rickmorty_orders --cov-report=term-missing
+    poetry run pytest 05_proyecto_final/rickmorty_orders/tests/ \
+      --cov=05_proyecto_final/rickmorty_orders/src/rickmorty_orders \
+      --cov-report=term-missing
 
 ## Docker (cuando esté listo)
 
