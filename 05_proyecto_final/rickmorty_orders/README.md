@@ -141,8 +141,8 @@ rickmorty_orders/
 | 2 | Dominio: entidades, VOs, puertos, eventos | ✅ Completada |
 | 3 | Aplicación: casos de uso + DTOs | ✅ Completada |
 | 4 | Infraestructura: SQLAlchemy, httpx, FastAPI | ✅ Completada |
-| 5 | Testing: unit + contract + integration + e2e | 🔄 Siguiente |
-| 6 | Alembic + Docker + CI/CD | ⬜ Pendiente |
+| 5 | Testing: unit + contract + integration + e2e | ✅ Completada |
+| 6 | Alembic + Docker + CI/CD | 🔄 Siguiente |
 | 7 | Auditoría + presentación | ⬜ Pendiente |
 
 ## Estado actual
@@ -181,17 +181,33 @@ rickmorty_orders/
 - Persistencia en SQLite
 - Crear, listar, obtener, confirmar y cancelar ordenes
 
+**Testing (FASE 5)**
+- `tests/conftest.py`: fixtures compartidas (engine SQLite, repos, samples)
+- `tests/unit/` (77 tests):
+  - `test_value_objects.py` (28 tests): Money, Email, OrderId, CharacterId
+  - `test_order.py` (28 tests): OrderItem, Order, transiciones, invariantes
+  - `test_events.py` (11 tests): DomainEvent, OrderCreated, OrderConfirmed, OrderCancelled
+  - `test_character.py` (10 tests): Character, CharacterStatus
+- `tests/contract/` (26 tests):
+  - `test_repository_contract.py` (16 tests): InMemory y SQL cumplen el mismo contrato (LSP)
+  - `test_character_repo_contract.py` (10 tests): InMemory y HTTP cumplen el mismo contrato
+- `tests/integration/` (9 tests):
+  - `test_rickmorty_client.py`: httpx.MockTransport, retry, 404, fallback
+- `tests/e2e/` (18 tests):
+  - `test_orders_api.py`: TestClient + SQLite en memoria + dependency_overrides
+
 **Calidad**
 - ruff: sin errores
-- mypy strict: sin errores (31 archivos)
+- mypy strict: sin errores (40 archivos)
+- pytest: 130 tests pasando
+- Cobertura: 93%
 
 ### Siguiente
 
-**FASE 5: Testing**
-- Unit tests (dominio puro)
-- Contract tests (adaptadores cumplen puertos)
-- Integration tests (SQLite en memoria, httpx MockTransport)
-- E2E tests (TestClient)
+**FASE 6: Alembic + Docker + CI/CD**
+- Alembic (init + migracion inicial + upgrade)
+- Dockerfile multistage
+- GitHub Actions (lint + typecheck + tests + build)
 
 ## Modelo de dominio (borrador)
 
@@ -280,18 +296,40 @@ Configuracion via variables de entorno (prefijo RMO_):
 
 ## Testing
 
-> Tests pendientes (FASE 5). Los comandos ya estan preparados:
+**130 tests, 93% cobertura.**
+
+Estructura:
+- `tests/unit/` (77): dominio puro (value objects, order, events, character)
+- `tests/contract/` (26): adaptadores cumplen los puertos (LSP)
+- `tests/integration/` (9): cliente HTTP con MockTransport
+- `tests/e2e/` (18): TestClient con DB en memoria
+
+Comandos:
 
     # Todos los tests
     poetry run pytest 05_proyecto_final/rickmorty_orders/tests/ -v
 
-    # Solo unit (dominio puro)
+    # Solo unit (dominio puro, rapidos)
     poetry run pytest 05_proyecto_final/rickmorty_orders/tests/unit/ -v
+
+    # Solo un tipo
+    poetry run pytest 05_proyecto_final/rickmorty_orders/tests/contract/ -v
+    poetry run pytest 05_proyecto_final/rickmorty_orders/tests/integration/ -v
+    poetry run pytest 05_proyecto_final/rickmorty_orders/tests/e2e/ -v
 
     # Con cobertura
     poetry run pytest 05_proyecto_final/rickmorty_orders/tests/ \
       --cov=05_proyecto_final/rickmorty_orders/src/rickmorty_orders \
       --cov-report=term-missing
+
+Tipos de tests (piramide):
+
+| Tipo | Cantidad | Velocidad | Dependencias |
+|------|---------:|-----------|--------------|
+| Unit | 77 | ~0.05s | Ninguna |
+| Contract | 26 | ~0.09s | SQLite memoria, MockTransport |
+| Integration | 9 | ~3s | httpx.MockTransport |
+| E2E | 18 | ~0.2s | TestClient + SQLite memoria |
 
 ## Docker (cuando esté listo)
 

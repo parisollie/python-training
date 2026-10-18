@@ -11,7 +11,7 @@ Demuestra:
 
 import logging
 import time
-from typing import Any
+from typing import Any, cast
 
 import httpx
 
@@ -65,14 +65,14 @@ class RickMortyApiClient:
     def __exit__(self, *args: Any) -> None:
         self.close()
 
-    def _request(self, path: str) -> dict[str, Any]:
+    def _request(self, path: str) -> dict[str, Any] | list[dict[str, Any]]:
         """Hace un GET con reintentos.
 
         Args:
-            path: ruta relativa (ej: /character/1).
+            path: ruta relativa (ej: /character/1 o /character/1,2).
 
         Returns:
-            JSON parseado como dict.
+            JSON parseado como dict (1 resultado) o list (varios).
 
         Raises:
             CharacterServiceError: si el personaje no existe o hay error.
@@ -87,7 +87,7 @@ class RickMortyApiClient:
                     raise CharacterServiceError(f"Personaje no encontrado: {path}")
                 response.raise_for_status()
                 data = response.json()
-                if not isinstance(data, dict):
+                if not isinstance(data, dict | list):
                     raise CharacterServiceError(
                         f"Respuesta inesperada de la API: {type(data).__name__}"
                     )
@@ -145,7 +145,9 @@ class RickMortyApiClient:
             if "no encontrado" in str(e).lower():
                 return None
             raise
-        return self._json_to_character(data)
+        # find_by_id siempre pide 1 personaje -> _request devuelve dict.
+        # Cast porque mypy no narrow bien dict|list[dict] tras try/except.
+        return self._json_to_character(cast(dict[str, Any], data))
 
     def list_by_ids(self, character_ids: list[CharacterId]) -> list[Character]:
         """Busca multiples personajes por id.
@@ -158,15 +160,19 @@ class RickMortyApiClient:
         try:
             data = self._request(f"/character/{ids_str}")
             # Respuesta multiple: {"id": ..., ...} si es 1, o lista si son varios
-            if isinstance(data, list):
-                return [self._json_to_character(item) for item in data]
-            return [self._json_to_character(data)]
+            # Narrow: si es dict -> 1 elemento; si es list -> varios.
+            if isinstance(data, dict):
+                return [self._json_to_character(data)]
+            return [self._json_to_character(item) for item in data]
         except CharacterServiceError:
-            # Fallback: uno por uno
+            # Fallback: uno por uno (ignorando los que no existen)
             logger.warning("Fallback a requests individuales")
             results: list[Character] = []
             for cid in character_ids:
-                char = self.find_by_id(cid)
+                try:
+                    char = self.find_by_id(cid)
+                except CharacterServiceError:
+                    continue
                 if char is not None:
                     results.append(char)
             return results
