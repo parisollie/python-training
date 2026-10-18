@@ -4,7 +4,10 @@ version = "0.1.0"
 description = "Capacitación Python con Rick and Morty"
 authors = ["parisollie <pjff18@gmail.com>"]
 readme = "README.md"
-packages = [{include = "python_training", from = "src"}]
+packages = [
+    {include = "python_training", from = "src"},
+    {include = "rickmorty_orders", from = "05_proyecto_final/rickmorty_orders/src"},
+]
 
 [tool.poetry.dependencies]
 python = "^3.12"
