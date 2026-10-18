@@ -17,7 +17,6 @@ sqlalchemy = "^2.1.4"
 alembic = "^1.20.0"
 fastapi = "^0.143.1"
 uvicorn = {version = "^0.54.0", extras = ["standard"]}
-python-jose = {extras = ["cryptography"], version = "^3.5.0"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 python-multipart = "^0.0.32"
 numpy = "^2.5.4"
@@ -34,10 +33,12 @@ mypy = "^2.4.0"
 pytest = "^9.1.1"
 pytest-cov = "^7.1.0"
 pre-commit = "^4.6.2"
+python-jose = {extras = ["cryptography"], version = "^3.5.0"}
 types-python-jose = "^3.5.0.20260408"
 hypothesis = "^6.169.1"
 pytest-asyncio = "^1.4.0"
 pandas-stubs = "^3.0.5.260914"
+pip-audit = "^2.10.1"
 
 [build-system]
 requires = ["poetry-core"]

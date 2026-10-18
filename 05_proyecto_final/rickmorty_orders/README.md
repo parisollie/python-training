@@ -2,6 +2,76 @@
 
 Proyecto final integrador de la capacitación Python: **servicio de Orders** con arquitectura hexagonal/limpia, API FastAPI, persistencia SQLAlchemy y consumo de la API pública de Rick and Morty.
 
+## Presentación del proyecto
+
+**rickmorty_orders** es un servicio backend completo y production-ready que demuestra una arquitectura hexagonal/limpia aplicada a un caso real: **órdenes de compra enriquecidas con personajes de Rick and Morty**.
+
+### ¿Qué hace?
+
+- Expone una **API REST** con 7 endpoints (crear/listar/obtener/confirmar/cancelar órdenes)
+- Consume la **API pública de Rick and Morty** para validar personajes y calcular precios
+- Persiste en **SQLite** (fácil de cambiar a PostgreSQL)
+- Aplica **migraciones reproducibles** con Alembic
+- Corre en **Docker** (imagen multistage, usuario non-root, healthcheck)
+- Pasa **130 tests** con **93% de cobertura**
+- Pasa **ruff** y **mypy strict** sin errores
+- Tiene **CI automatizado** en GitHub Actions
+
+### Métricas
+
+| Métrica | Valor |
+|---------|-------|
+| Commits | 35+ |
+| Tests | **130** |
+| Cobertura | **93%** |
+| Endpoints | **7** |
+| Módulos de dominio | 5 (value_objects, errors, events, character, order) |
+| Casos de uso | 5 (create, get, list, confirm, cancel) |
+| Puertos (interfaces) | 4 (OrderRepository, CharacterRepository, Notifier, EventBus) |
+| Adaptadores | 6 (SQL, HTTP, Console, InMemory x2, Fake) |
+| Migraciones Alembic | 1 |
+| Código fuente | ~1,500 líneas |
+| Código de tests | ~1,800 líneas |
+| Imagen Docker | 662 MB (137 MB comprimida) |
+
+### Arquitectura
+
+Hexagonal (ports & adapters) con 3 capas concéntricas:
+
+    Infraestructura  →  Aplicación  →  Dominio
+    (adaptadores)        (casos de uso)  (entidades, VOs, puertos)
+
+Regla de dependencia: las dependencias apuntan **hacia dentro**. El dominio **nunca** importa infraestructura.
+
+### Demo en 2 comandos
+
+    # 1. Construir y arrancar el contenedor
+    docker build -f 05_proyecto_final/rickmorty_orders/Dockerfile -t rickmorty-orders:latest .
+    docker run -d --name rickmorty -p 8001:8000 rickmorty-orders:latest
+
+    # 2. Probar
+    curl http://localhost:8001/health
+    curl -X POST http://localhost:8001/orders/ \
+      -H "Content-Type: application/json" \
+      -d '{"customer_email": "demo@example.com", "items": [{"character_id": 1, "quantity": 1}]}'
+
+Documentación interactiva: http://localhost:8001/docs
+
+### Stack
+
+Python 3.12 · FastAPI · SQLAlchemy 2.0 · Alembic · Pydantic · httpx · SQLite · Docker · GitHub Actions · Poetry · pytest · ruff · mypy
+
+### Qué demuestra este proyecto
+
+- **Arquitectura hexagonal/limpia** aplicada a un caso real
+- **Inversión de dependencias** con `Protocol` (PEP 544)
+- **Value Objects** con invariantes (`Money`, `Email`, `OrderId`)
+- **Eventos de dominio** (`OrderCreated`, `OrderConfirmed`, `OrderCancelled`)
+- **Repository pattern** con implementaciones intercambiables (SQL / InMemory)
+- **Testing profesional**: unit + contract (LSP) + integration + e2e
+- **CI/CD**: Docker multistage + GitHub Actions
+- **Seguridad**: auditoría con `pip-audit`, usuario non-root, secrets via env vars
+
 ## Objetivo
 
 Construir un servicio backend completo y production-ready que demuestre todo lo aprendido en los 15 módulos: desde el dominio puro hasta el delivery (Docker + CI/CD).
@@ -58,80 +128,78 @@ Regla de dependencia: infrastructure -> application -> domain. Nunca al revés.
 
 ## Estructura del proyecto
 
-rickmorty_orders/
-├── README.md
-├── pyproject.toml              <- configuración Poetry + herramientas
-├── poetry.lock
-├── .env.example                <- ejemplo de variables de entorno
-├── .dockerignore
-├── Dockerfile                  <- multistage
-├── docker-compose.yml          <- para desarrollo local
-├── alembic.ini                 <- configuración Alembic
-├── alembic/                    <- migraciones
-│   ├── env.py
-│   ├── script.py.mako
-│   └── versions/
-├── .github/
-│   └── workflows/
-│       └── ci.yml              <- lint + typecheck + tests + build
-├── src/
-│   └── rickmorty_orders/
-│       ├── __init__.py
-│       ├── domain/             <- NÚCLEO (sin dependencias externas)
-│       │   ├── __init__.py
-│       │   ├── value_objects.py    <- OrderId, Money, Email, CharacterId
-│       │   ├── order.py            <- Order, OrderItem, OrderStatus
-│       │   ├── character.py        <- Character (referencia externa)
-│       │   ├── events.py           <- OrderCreated, OrderConfirmed, ...
-│       │   ├── errors.py           <- errores de dominio
-│       │   └── ports.py            <- OrderRepository, CharacterRepository,
-│       │                              Notifier, EventBus
-│       ├── application/        <- CASOS DE USO
-│       │   ├── __init__.py
-│       │   ├── dtos.py             <- CreateOrderInput, OrderOutput
-│       │   ├── create_order.py     <- CreateOrderService
-│       │   ├── get_order.py        <- GetOrderService
-│       │   ├── list_orders.py      <- ListOrdersService
-│       │   ├── confirm_order.py    <- ConfirmOrderService
-│       │   ├── cancel_order.py     <- CancelOrderService
-│       │   └── event_handlers.py   <- manejo de eventos
-│       └── infrastructure/     <- ADAPTADORES
-│           ├── __init__.py
-│           ├── config.py           <- Settings (pydantic-settings)
-│           ├── api/                <- FastAPI
-│           │   ├── app.py
-│           │   ├── dependencies.py
-│           │   ├── routers/
-│           │   │   ├── orders.py
-│           │   │   └── health.py
-│           │   └── schemas.py
-│           ├── persistence/        <- SQLAlchemy
-│           │   ├── models.py
-│           │   ├── database.py
-│           │   └── repositories.py
-│           ├── external/           <- Rick and Morty API
-│           │   └── rickmorty_client.py
-│           └── notifications/
-│               └── console_notifier.py
-└── tests/
-    ├── __init__.py
-    ├── conftest.py             <- fixtures compartidas
-    ├── unit/                   <- dominio puro
-    │   ├── __init__.py
-    │   ├── test_value_objects.py
-    │   ├── test_order.py
-    │   └── test_events.py
-    ├── contract/               <- adaptadores cumplen puertos
-    │   ├── __init__.py
-    │   ├── test_repository_contract.py
-    │   └── test_character_repo_contract.py
-    ├── integration/            <- con SQLite, HTTP mock, etc.
-    │   ├── __init__.py
-    │   ├── test_sql_repository.py
-    │   └── test_rickmorty_client.py
-    └── e2e/                    <- flujo completo con TestClient
-        ├── __init__.py
-        └── test_orders_api.py
+- `README.md`
+- `pyproject.toml` — configuración Poetry + herramientas
+- `poetry.lock`
+- `.env.example` — ejemplo de variables de entorno
+- `.dockerignore`
+- `Dockerfile` — multistage
+- `docker-compose.yml` — para desarrollo local
+- `alembic.ini` — configuración Alembic
+- `alembic/` — migraciones
+  - `env.py`
+  - `script.py.mako`
+  - `versions/`
+- `.github/`
+  - `workflows/`
+    - `ci.yml` — lint + typecheck + tests + build
+- `src/`
+  - `rickmorty_orders/`
+    - `__init__.py`
+    - `domain/` — **NÚCLEO** (sin dependencias externas)
+      - `__init__.py`
+      - `value_objects.py` — OrderId, Money, Email, CharacterId
+      - `order.py` — Order, OrderItem, OrderStatus
+      - `character.py` — Character (referencia externa)
+      - `events.py` — OrderCreated, OrderConfirmed, OrderCancelled
+      - `errors.py` — errores de dominio
+      - `ports.py` — OrderRepository, CharacterRepository, Notifier, EventBus
+    - `application/` — **CASOS DE USO**
+      - `__init__.py`
+      - `dtos.py` — CreateOrderInput, OrderOutput
+      - `create_order.py` — CreateOrderService
+      - `get_order.py` — GetOrderService
+      - `list_orders.py` — ListOrdersService
+      - `confirm_order.py` — ConfirmOrderService
+      - `cancel_order.py` — CancelOrderService
+      - `event_handlers.py` — manejo de eventos
+    - `infrastructure/` — **ADAPTADORES**
+      - `__init__.py`
+      - `config.py` — Settings (pydantic-settings)
+      - `api/` — FastAPI
+        - `app.py`
+        - `dependencies.py`
+        - `routers/`
+          - `orders.py`
+          - `health.py`
+        - `schemas.py`
+      - `persistence/` — SQLAlchemy
+        - `models.py`
+        - `database.py`
+        - `repositories.py`
+      - `external/` — Rick and Morty API
+        - `rickmorty_client.py`
+      - `notifications/`
+        - `console_notifier.py`
+- `tests/`
+  - `__init__.py`
+  - `conftest.py` — fixtures compartidas
+  - `unit/` — dominio puro
+    - `__init__.py`
+    - `test_value_objects.py`
+    - `test_order.py`
+    - `test_events.py`
+  - `contract/` — adaptadores cumplen puertos
+    - `__init__.py`
+    - `test_repository_contract.py`
+    - `test_character_repo_contract.py`
+  - `integration/` — con SQLite, HTTP mock, etc.
+    - `__init__.py`
+    - `test_sql_repository.py`
+    - `test_rickmorty_client.py`
+  - `e2e/` — flujo completo con TestClient
+    - `__init__.py`
+    - `test_orders_api.py`
 
 ## Fases del proyecto
 
@@ -143,7 +211,7 @@ rickmorty_orders/
 | 4 | Infraestructura: SQLAlchemy, httpx, FastAPI | ✅ Completada |
 | 5 | Testing: unit + contract + integration + e2e | ✅ Completada |
 | 6 | Alembic + Docker + CI/CD | ✅ Completada |
-| 7 | Auditoría + presentación | 🔄 Siguiente |
+| 7 | Auditoría + presentación | ✅ Completada |
 
 ## Estado actual
 
@@ -622,6 +690,41 @@ Variables (todas con prefijo `RMO_`):
 | RMO_SECRET_KEY | cambiar-en-produccion | JWT secret (futuro) |
 
 **NUNCA** commitear `.env` con valores reales. Ya esta en `.gitignore`.
+
+## Auditoría de dependencias
+
+El proyecto usa `pip-audit` (herramienta oficial de PyPA) para auditar dependencias contra la base de datos de vulnerabilidades (PyPI Advisory + OSV).
+
+### Ejecutar la auditoría
+
+    # Auditar todas las dependencias
+    poetry run pip-audit
+
+    # Auditoría de produccion (ignorando vulnerabilidades conocidas en dev)
+    poetry run pip-audit \
+      --ignore-vuln PYSEC-2026-1325 \
+      --ignore-vuln PYSEC-2026-4298
+
+Salida esperada:
+
+    No known vulnerabilities found, 3 ignored
+
+### Vulnerabilidades conocidas (ignoradas justificadamente)
+
+| Paquete | CVE | Motivo | Acción |
+|---------|-----|--------|--------|
+| `ecdsa 0.19.2` | PYSEC-2026-1325 | Minerva timing attack. El mantenedor considera los ataques de canal lateral fuera de alcance. | Solo en `dev` (via python-jose). No se usa en runtime. |
+| `python-jose 3.5.0` | PYSEC-2026-4298 | Algorithm confusion (CVSS 9.3). Sin fix upstream (proyecto sin mantenimiento). | Solo en `dev` (lab 09). Proyecto final no usa JWT. |
+
+**Decisión:** ambas dependencias se movieron al grupo `dev` del `pyproject.toml`. El **runtime del proyecto final no las carga**, por lo que no representan un riesgo de seguridad en producción.
+
+Si en el futuro se necesita JWT en producción, se migrará a **`PyJWT`** (mantenida, sin CVEs conocidos).
+
+### Última auditoría
+
+- **Fecha:** 18 de octubre de 2026
+- **Resultado:** `No known vulnerabilities found, 3 ignored`
+- **Paquete local `python-training`:** no auditado (no está en PyPI, es local)
 
 ## Criterios de éxito (rúbrica)
 
