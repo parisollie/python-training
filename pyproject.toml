@@ -7,6 +7,7 @@ readme = "README.md"
 packages = [
     {include = "python_training", from = "src"},
     {include = "rickmorty_orders", from = "05_proyecto_final/rickmorty_orders/src"},
+    {include = "clean_arch", from = "04_laboratorios/lab_16_clean_arch/src"},
 ]
 
 [tool.poetry.dependencies]
