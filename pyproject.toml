@@ -25,6 +25,8 @@ pandas = "^3.0.6"
 scikit-learn = "^1.9.1"
 joblib = "^1.6.0"
 pydantic-settings = "^2.16.0"
+typer = "^0.27.3"
+rich = "^15.0.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.16.10"
@@ -40,6 +42,9 @@ hypothesis = "^6.169.1"
 pytest-asyncio = "^1.4.0"
 pandas-stubs = "^3.0.5.260914"
 pip-audit = "^2.10.1"
+
+[tool.poetry.scripts]
+rickmorty-orders = "rickmorty_orders.cli.main:app"
 
 [build-system]
 requires = ["poetry-core"]
