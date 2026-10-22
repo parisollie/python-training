@@ -1,0 +1,55 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-and-publish:
+    name: Build wheel + publish artifact
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        run: pipx install poetry==2.5.1
+
+      - name: Cache Poetry
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry
+          key: poetry-${{ hashFiles('poetry.lock') }}
+
+      - name: Install dependencies
+        run: poetry install --with dev
+
+      - name: Run tests
+        run: poetry run pytest 05_proyecto_final/rickmorty_orders/tests/ -q
+
+      - name: Build wheel and sdist
+        run: poetry build
+
+      - name: Show wheel contents
+        run: unzip -l dist/*.whl
+
+      - name: Upload wheel as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-training-wheel-${{ github.ref_name }}
+          path: dist/*
+          retention-days: 30
+
+      # NOTA: Para publicar de verdad en TestPyPI, reemplaza este paso
+      # por el oficial:
+      #
+      # - name: Publish to TestPyPI
+      #   uses: pypa/gh-action-pypi-publish@release/v1
+      #   with:
+      #     repository-url: https://test.pypi.org/legacy/
+      #     password: ${{ secrets.TEST_PYPI_TOKEN }}
+      #     skip-existing: true
