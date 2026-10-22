@@ -726,6 +726,59 @@ Si en el futuro se necesita JWT en producción, se migrará a **`PyJWT`** (mante
 - **Resultado:** `No known vulnerabilities found, 3 ignored`
 - **Paquete local `python-training`:** no auditado (no está en PyPI, es local)
 
+## Plan de mantenimiento
+
+### Tareas periodicas
+
+| Frecuencia | Tarea | Comando |
+|------------|-------|---------|
+| **Semanal** | Auditar dependencias | `poetry run pip-audit` |
+| **Semanal** | Ver vulnerabilidades de la imagen Docker | `docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --scanners vuln --quiet rickmorty-orders:latest` |
+| **Semanal** | Ver dependencias desactualizadas | `poetry show --outdated` |
+| **Mensual** | Actualizar dependencias (en rama) | `poetry update` + tests + merge |
+| **Mensual** | Actualizar imagen base `python:3.12-slim` | Rebuild sin cache + re-escanear |
+| **Trimestral** | Rotar secretos (`RMO_SECRET_KEY`, tokens) | Manual + deploy |
+| **Anual** | Actualizar Python (MINOR/MAJOR) | Rebuild + tests |
+
+### Politica de excepciones de seguridad
+
+Cuando `pip-audit` o Trivy detecten una vulnerabilidad **sin fix disponible**:
+
+1. **Documentar** en el README del modulo correspondiente:
+   - CVE, paquete afectado, severidad
+   - Justificacion (no explotable, solo dev, sin fix upstream)
+   - Accion a tomar (rotar, migrar, aceptar)
+2. **Ignorar explicitamente** en la herramienta:
+   - `pip-audit --ignore-vuln CVE-XXXX-YYYY`
+   - Trivy: `--ignore-unfixed` o `.trivyignore`
+3. **Revisar** en la siguiente auditoria trimestral
+
+### Vulnerabilidades conocidas aceptadas
+
+| Paquete | CVE | Severidad | Motivo | Accion |
+|---------|-----|-----------|--------|--------|
+| `python-jose 3.5.0` | CVE-2026-85394 | CRITICAL | Sin fix upstream. Movido al grupo dev. No se usa en runtime. | Migrar a PyJWT si se necesita JWT en prod |
+| `ecdsa 0.19.2` | PYSEC-2026-1325 | HIGH | Minerva timing attack. Sin fix. Dependencia de `python-jose`. | Solo en dev |
+| Paquetes del OS (Debian) | Varios | HIGH/MEDIUM | Imagen base `python:3.12-slim`. No explotables desde el codigo. | Actualizar imagen base mensualmente |
+
+### Comandos de auditoria (resumen)
+
+    # Dependencias Python
+    poetry run pip-audit
+
+    # Imagen Docker (Trivy)
+    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+      aquasec/trivy:latest image --scanners vuln --quiet rickmorty-orders:latest
+
+    # Dependencias desactualizadas
+    poetry show --outdated
+
+    # Actualizar (en rama)
+    poetry update
+    poetry run pytest 05_proyecto_final/rickmorty_orders/tests/ -q
+    poetry run ruff check 05_proyecto_final/rickmorty_orders/
+    poetry run mypy 05_proyecto_final/rickmorty_orders/
+
 ## Criterios de éxito (rúbrica)
 
 - [ ] Arquitectura: capas separadas, regla de dependencia respetada

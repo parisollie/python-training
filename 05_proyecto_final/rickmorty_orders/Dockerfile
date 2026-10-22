@@ -36,6 +36,7 @@ COPY README.md ./
 # Copiar el codigo fuente (necesario para instalar el paquete)
 COPY src/ ./src/
 COPY 05_proyecto_final/rickmorty_orders/src/ ./05_proyecto_final/rickmorty_orders/src/
+COPY 04_laboratorios/lab_16_clean_arch/src/ ./04_laboratorios/lab_16_clean_arch/src/
 
 # Instalar el proyecto
 RUN poetry install --only main
@@ -66,6 +67,7 @@ COPY --from=builder --chown=app:app /app/.venv /app/.venv
 # Copiar el codigo fuente (necesario para el paquete rickmorty_orders)
 COPY --from=builder --chown=app:app /app/src /app/src
 COPY --from=builder --chown=app:app /app/05_proyecto_final/rickmorty_orders/src /app/05_proyecto_final/rickmorty_orders/src
+COPY --from=builder --chown=app:app /app/04_laboratorios/lab_16_clean_arch/src /app/04_laboratorios/lab_16_clean_arch/src
 
 # Copiar alembic (para migraciones en runtime)
 COPY --chown=app:app 05_proyecto_final/rickmorty_orders/alembic.ini ./
