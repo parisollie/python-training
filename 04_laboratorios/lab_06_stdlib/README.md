@@ -9,6 +9,7 @@ Script de ingesta que lee un CSV de Rick and Morty, calcula métricas, exporta a
 
 ## Estructura
 
+```text
 lab_06_stdlib/
 ├── README.md              ← este archivo
 ├── ingest.py              ← script principal
@@ -18,6 +19,7 @@ lab_06_stdlib/
 │   └── metrics.json       ← generado al ejecutar (no versionado)
 └── tests/
     └── test_ingest.py     ← 12 tests
+```
 
 ## Conceptos demostrados
 

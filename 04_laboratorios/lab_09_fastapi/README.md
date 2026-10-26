@@ -11,6 +11,7 @@ API completa con CRUD de ordenes, autenticacion JWT y documentacion OpenAPI auto
 
 ## Estructura
 
+```text
 lab_09_fastapi/
 ├── README.md              ← este archivo
 ├── main.py                ← FastAPI app + include_router
@@ -26,6 +27,7 @@ lab_09_fastapi/
 └── tests/
     ├── conftest.py        ← TestClient + SQLite en memoria
     └── test_api.py        ← 21 tests de integracion
+```
 
 ## Ejecutar la API
 

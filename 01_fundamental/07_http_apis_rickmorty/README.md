@@ -163,16 +163,16 @@ Cliente HTTP para la API de Rick and Morty:
         assert r.json()["name"] == "Rick"
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] Instalar httpx
-- [ ] Implementar cliente con timeouts
-- [ ] Implementar reintentos con backoff
-- [ ] Implementar paginacion
-- [ ] Implementar streaming a disco
-- [ ] Escribir tests con MockTransport
-- [ ] Correr ruff y mypy
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio
+- [x] Instalar httpx
+- [x] Implementar cliente con timeouts
+- [x] Implementar reintentos con backoff
+- [x] Implementar paginacion
+- [x] Implementar streaming a disco
+- [x] Escribir tests con MockTransport
+- [x] Correr ruff y mypy
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - httpx docs: https://www.python-httpx.org/

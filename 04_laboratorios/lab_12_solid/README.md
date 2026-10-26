@@ -9,6 +9,7 @@ Refactor de un servicio de órdenes aplicando los 5 principios SOLID, con inyecc
 
 ## Estructura
 
+```text
 lab_12_solid/
 ├── README.md              ← este archivo
 ├── domain/                ← reglas de negocio (puro Python)
@@ -28,6 +29,7 @@ lab_12_solid/
     ├── conftest.py        ← fixtures
     ├── test_domain.py     ← 9 tests
     └── test_order_service.py ← 14 tests
+```
 
 ## Los 5 principios SOLID
 

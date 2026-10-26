@@ -13,7 +13,7 @@ Proyecto final integrador de la capacitación Python: **servicio de Orders** con
 - Persiste en **SQLite** (fácil de cambiar a PostgreSQL)
 - Aplica **migraciones reproducibles** con Alembic
 - Corre en **Docker** (imagen multistage, usuario non-root, healthcheck)
-- Pasa **130 tests** con **93% de cobertura**
+- Pasa **162 tests** con **93% de cobertura**
 - Pasa **ruff** y **mypy strict** sin errores
 - Tiene **CI automatizado** en GitHub Actions
 
@@ -22,7 +22,7 @@ Proyecto final integrador de la capacitación Python: **servicio de Orders** con
 | Métrica | Valor |
 |---------|-------|
 | Commits | 35+ |
-| Tests | **130** |
+| Tests | **162** |
 | Cobertura | **93%** |
 | Endpoints | **7** |
 | Módulos de dominio | 5 (value_objects, errors, events, character, order) |
@@ -267,7 +267,7 @@ Regla de dependencia: infrastructure -> application -> domain. Nunca al revés.
 **Calidad**
 - ruff: sin errores
 - mypy strict: sin errores (40 archivos)
-- pytest: 130 tests pasando
+- pytest: 162 tests pasando
 - Cobertura: 93%
 
 **Alembic + Docker + CI/CD (FASE 6)**
@@ -487,7 +487,7 @@ Detener el servidor con `Ctrl+C`.
 
 ### FASE 5: Testing
 
-    # Todos los tests (130 esperados)
+    # Todos los tests (162 esperados)
     poetry run pytest 05_proyecto_final/rickmorty_orders/tests/ -v
 
     # Solo unit (77 tests rapidos, <0.1s)
@@ -507,7 +507,7 @@ Detener el servidor con `Ctrl+C`.
       --cov=05_proyecto_final/rickmorty_orders/src/rickmorty_orders \
       --cov-report=term-missing
 
-Salida esperada: `130 passed` en ~3s (con cobertura ~93%).
+Salida esperada: `162 passed` en ~3s (con cobertura ~93%).
 
 ### Verificación de calidad (todas las fases)
 
@@ -523,7 +523,7 @@ Salida esperada:
 
 ## Testing
 
-**130 tests, 93% cobertura.**
+**162 tests, 93% cobertura.**
 
 Estructura:
 - `tests/unit/` (77): dominio puro (value objects, order, events, character)
@@ -808,3 +808,103 @@ parisollie - pjff18@gmail.com
 ## Licencia
 
 Uso educativo.
+
+## CLI (`rickmorty-orders`)
+
+El paquete incluye un CLI construido con Typer que consume la misma API.
+
+### Instalación
+
+    poetry install
+
+El comando `rickmorty-orders` queda disponible en el venv.
+
+### Comandos disponibles
+
+    rickmorty-orders --help
+    rickmorty-orders health
+    rickmorty-orders orders list [--email EMAIL]
+    rickmorty-orders orders get ORDER_ID
+    rickmorty-orders orders create --email EMAIL --character ID [--quantity N]
+    rickmorty-orders orders confirm ORDER_ID
+    rickmorty-orders orders cancel ORDER_ID [--reason MOTIVO]
+
+### Uso (API debe estar corriendo)
+
+    # Terminal 1: arrancar la API
+    poetry run uvicorn rickmorty_orders.infrastructure.api_app:app --port 8000
+
+    # Terminal 2: usar el CLI
+    poetry run rickmorty-orders health
+    poetry run rickmorty-orders orders list
+    poetry run rickmorty-orders orders create --email "a@example.com" --character 1
+
+### Configuración
+
+Variable de entorno `CLI_API_URL` (default: `http://localhost:8000`):
+
+    CLI_API_URL=http://mi-api.com poetry run rickmorty-orders health
+
+### Tests del CLI
+
+    poetry run pytest 05_proyecto_final/rickmorty_orders/tests/cli/ -v
+
+Salida esperada: `10 passed`.
+
+## gRPC (`OrderService`)
+
+El proyecto expone el mismo dominio vía **gRPC**, además de REST y CLI.
+El contrato vive en `proto/orders.proto` (5 RPCs).
+
+### Regenerar stubs (solo si modificas el `.proto`)
+
+    cd 05_proyecto_final/rickmorty_orders
+    poetry run python -m grpc_tools.protoc \
+      -I ./proto \
+      --python_out=./src/rickmorty_orders/grpc \
+      --grpc_python_out=./src/rickmorty_orders/grpc \
+      ./proto/orders.proto
+    poetry run python fix_grpc_imports.py
+    cd ../..
+
+### Cómo usar (dos terminales)
+
+**Terminal 1 — servidor:**
+
+    cd ~/Desktop/python-training
+    poetry run python -m rickmorty_orders.grpc.server
+
+Salida esperada:
+
+    INFO:__main__:gRPC server escuchando en puerto 50051
+
+**Dejar esta terminal abierta.**
+
+**Terminal 2 — cliente de demo:**
+
+    cd ~/Desktop/python-training
+    poetry run python -m rickmorty_orders.grpc.client
+
+Flujo completo: `create → get → list → confirm → cancel → cancel (falla a propósito)`.
+
+La última línea debe ser:
+
+    [ERROR] CancelOrder x2 (esperado: FAILED_PRECONDITION) -> FAILED_PRECONDITION: La orden ya esta cancelada
+
+Ese "error" confirma que el dominio rechaza correctamente cancelar una orden ya cancelada.
+
+### Manejo de errores
+
+| Error de dominio | Status code gRPC |
+|---|---|
+| `OrderNotFoundError` | `NOT_FOUND` |
+| `CharacterNotFoundError` | `NOT_FOUND` |
+| `InvalidStatusTransitionError` | `FAILED_PRECONDITION` |
+| `pydantic.ValidationError` | `INVALID_ARGUMENT` |
+| `Exception` | `INTERNAL` |
+
+### Tests de gRPC
+
+    poetry run pytest 05_proyecto_final/rickmorty_orders/tests/grpc/ -v
+
+Salida esperada: `22 passed`.

@@ -16,12 +16,14 @@ Cliente HTTP robusto que consume la API de Rick and Morty con:
 
 ## Estructura
 
+```text
 lab_07_http/
 ├── README.md              ← este archivo
 ├── client.py              ← cliente httpx con reintentos
 ├── downloads/             ← archivos descargados (ignorados por git)
 └── tests/
     └── test_client.py     ← 11 tests con MockTransport (sin red)
+```
 
 ## Cliente HTTP (client.py)
 

@@ -236,13 +236,13 @@ era una segunda opinion opcional, no obligatoria.
 Esto lo instala en un venv aislado sin afectar al proyecto.
 
 ## Checklist
-- [ ] Instalar `safety` como dev dependency
-- [ ] Ejecutar `safety check` y comparar con `pip-audit`
-- [ ] Escanear la imagen Docker (`trivy image` o `docker scout`)
-- [ ] Documentar el plan de mantenimiento en el README
-- [ ] Documentar excepciones de auditoria
-- [ ] Correr ruff y mypy
-- [ ] Commit del modulo
+- [ ] Instalar `safety` como dev dependency _(no aplica: conflicto con typer 0.27.3)_
+- [ ] Ejecutar `safety check` y comparar con `pip-audit` _(no aplica: safety no instalado)_
+- [x] Escanear la imagen Docker (`trivy image` o `docker scout`)
+- [x] Documentar el plan de mantenimiento en el README
+- [x] Documentar excepciones de auditoria
+- [x] Correr ruff y mypy
+- [x] Commit del modulo
 
 ## Referencias
 - pip-audit: https://pypi.org/project/pip-audit/

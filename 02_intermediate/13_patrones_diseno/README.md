@@ -154,15 +154,15 @@ Implementar 4 patrones con ejemplos reales:
         raise ValueError(f"Tipo desconocido: {kind}")
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] Implementar Strategy (precios)
-- [ ] Implementar Decorator (cache)
-- [ ] Implementar Adapter (API externa)
-- [ ] Implementar Factory (notificadores)
-- [ ] Tests con pytest
-- [ ] Correr ruff y mypy
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio
+- [x] Implementar Strategy (precios)
+- [x] Implementar Decorator (cache)
+- [x] Implementar Adapter (API externa)
+- [x] Implementar Factory (notificadores)
+- [x] Tests con pytest
+- [x] Correr ruff y mypy
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - Refactoring Guru: https://refactoring.guru/design-patterns

@@ -17,6 +17,7 @@ Pipeline completo de Machine Learning con Pandas y scikit-learn:
 
 ## Estructura
 
+```text
 lab_14_data_science/
 ├── README.md              ← este archivo
 ├── analysis.py            ← carga, explora y limpia datos
@@ -30,6 +31,7 @@ lab_14_data_science/
     ├── conftest.py
     ├── test_analysis.py   ← 9 tests
     └── test_model.py      ← 11 tests
+```
 
 ## El problema
 

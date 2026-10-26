@@ -217,16 +217,16 @@ CLI con Typer para gestionar ordenes consumiendo la API del proyecto final:
         assert "Hola Paul" in result.stdout
 
 ## Checklist
-- [ ] Crear estructura del CLI (paquete `cli/`)
-- [ ] Implementar subcomandos (list, create, get, confirm, cancel)
-- [ ] Config con pydantic-settings (prefijo `CLI_`)
-- [ ] Cliente HTTP hacia la API (httpx)
-- [ ] Output formateado (rich: tablas, colores)
-- [ ] Entry point `rickmorty-orders` en pyproject.toml
-- [ ] Tests con `CliRunner`
-- [ ] Correr ruff y mypy
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del CLI (paquete `cli/`)
+- [x] Implementar subcomandos (list, create, get, confirm, cancel)
+- [x] Config con pydantic-settings (prefijo `CLI_`)
+- [x] Cliente HTTP hacia la API (httpx)
+- [x] Output formateado (rich: tablas, colores)
+- [x] Entry point `rickmorty-orders` en pyproject.toml
+- [x] Tests con `CliRunner`
+- [x] Correr ruff y mypy
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - Typer docs: https://typer.tiangolo.com/

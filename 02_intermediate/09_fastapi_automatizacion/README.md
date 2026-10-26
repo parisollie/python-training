@@ -189,16 +189,16 @@ API de Orders con:
     app.dependency_overrides[get_db] = override_get_db
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] Instalar fastapi, uvicorn, python-jose, passlib[bcrypt]
-- [ ] Modelos SQLAlchemy
-- [ ] Schemas Pydantic
-- [ ] Seguridad (hash + JWT)
-- [ ] Routers (auth, users, orders)
-- [ ] App principal con include_router
-- [ ] Tests con TestClient + SQLite en memoria
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio
+- [x] Instalar fastapi, uvicorn, python-jose, passlib[bcrypt]
+- [x] Modelos SQLAlchemy
+- [x] Schemas Pydantic
+- [x] Seguridad (hash + JWT)
+- [x] Routers (auth, users, orders)
+- [x] App principal con include_router
+- [x] Tests con TestClient + SQLite en memoria
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - FastAPI docs: https://fastapi.tiangolo.com/

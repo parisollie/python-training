@@ -10,6 +10,7 @@ Carrito de compras con descuentos, implementado con TDD y probado con 3 técnica
 
 ## Estructura
 
+```text
 lab_10_tdd/
 ├── README.md              ← este archivo
 ├── cart.py                ← Cart + UserService (Protocol) + InMemoryUserService
@@ -18,6 +19,7 @@ lab_10_tdd/
     ├── test_cart.py       ← 18 tests clásicos
     ├── test_mocking.py    ← 7 tests con unittest.mock
     └── test_properties.py ← 8 tests con Hypothesis
+```
 
 ## Reglas de negocio
 

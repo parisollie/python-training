@@ -16,6 +16,7 @@ Demuestra el uso de tipado avanzado en Python 3.12 con mypy strict:
 
 ## Estructura
 
+```text
 lab_05_typing/
 ├── README.md              ← este archivo
 ├── models.py              ← entidades con tipos avanzados
@@ -23,6 +24,7 @@ lab_05_typing/
 └── tests/
     ├── test_models.py     ← 9 tests
     └── test_repository.py ← 14 tests
+```
 
 ## Modelos de dominio (models.py)
 

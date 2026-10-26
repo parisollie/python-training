@@ -160,14 +160,14 @@ Ademas:
         assert cart.total() >= 0
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] Instalar hypothesis
-- [ ] Escribir tests con TDD (Red-Green-Refactor)
-- [ ] Tests con mocking
-- [ ] Tests con property-based (Hypothesis)
-- [ ] Correr cobertura
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio
+- [x] Instalar hypothesis
+- [x] Escribir tests con TDD (Red-Green-Refactor)
+- [x] Tests con mocking
+- [x] Tests con property-based (Hypothesis)
+- [x] Correr cobertura
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - pytest docs: https://docs.pytest.org/

@@ -15,6 +15,7 @@ Demuestra los conceptos de **Clean Architecture** aplicados a un caso real
 
 ## Estructura
 
+```text
 lab_16_clean_arch/
 ├── README.md              <- este archivo
 ├── src/
@@ -40,6 +41,7 @@ lab_16_clean_arch/
 │           └── memory_uow.py          (InMemoryUnitOfWork, FakeEventBus, FakeNotifier)
 └── tests/
     └── __init__.py
+```
 
 ## Los 4 componentes clave
 

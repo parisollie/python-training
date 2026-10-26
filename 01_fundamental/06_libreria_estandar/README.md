@@ -151,16 +151,16 @@ Script de ingesta y procesamiento:
     logger.error("No se pudo conectar")
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] Implementar lectura de CSV con DictReader
-- [ ] Usar pathlib para rutas
-- [ ] Usar datetime para timestamps
-- [ ] Configurar logging con niveles
-- [ ] Exportar resultados a JSON
-- [ ] Escribir tests con pytest (tmp_path)
-- [ ] Correr ruff y mypy
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio
+- [x] Implementar lectura de CSV con DictReader
+- [x] Usar pathlib para rutas
+- [x] Usar datetime para timestamps
+- [x] Configurar logging con niveles
+- [x] Exportar resultados a JSON
+- [x] Escribir tests con pytest (tmp_path)
+- [x] Correr ruff y mypy
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - Python docs — pathlib: https://docs.python.org/3/library/pathlib.html

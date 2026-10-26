@@ -147,16 +147,16 @@ Refactor de un servicio de ordenes aplicando SOLID.
     # OrderService no cambia cuando se agrega PayPal, Crypto, etc.
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] Identificar violaciones SOLID en codigo "malo"
-- [ ] Definir Protocols (Repository, Notifier, PaymentProcessor)
-- [ ] Implementar dominio (Order con validaciones)
-- [ ] Implementar OrderService dependiendo de Protocols
-- [ ] Implementaciones en memoria + SQL + Fake
-- [ ] Tests verificando LSP (mismas aserciones para todas las impl)
-- [ ] Correr ruff y mypy
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio
+- [x] Identificar violaciones SOLID en codigo "malo"
+- [x] Definir Protocols (Repository, Notifier, PaymentProcessor)
+- [x] Implementar dominio (Order con validaciones)
+- [x] Implementar OrderService dependiendo de Protocols
+- [x] Implementaciones en memoria + SQL + Fake
+- [x] Tests verificando LSP (mismas aserciones para todas las impl)
+- [x] Correr ruff y mypy
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - Robert C. Martin — Clean Architecture (libro)

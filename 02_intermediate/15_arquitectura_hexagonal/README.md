@@ -214,18 +214,18 @@ Sistema de ordenes con arquitectura hexagonal:
     # El caso de uso NO cambia
 
 ## Checklist
-- [ ] Crear estructura (domain/application/infrastructure/tests)
-- [ ] Implementar Value Objects (OrderId, Money, Email)
-- [ ] Implementar entidad Order (con logica pura)
-- [ ] Definir puertos (OrderRepository, Notifier)
-- [ ] Implementar caso de uso CreateOrderService
-- [ ] DTOs con Pydantic (CreateOrderInput, OrderOutput)
-- [ ] Adaptadores InMemory y Fake
-- [ ] Adaptador HTTP con httpx (opcional)
-- [ ] Tests: unit, contract, e2e
-- [ ] Correr ruff y mypy
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura (domain/application/infrastructure/tests)
+- [x] Implementar Value Objects (OrderId, Money, Email)
+- [x] Implementar entidad Order (con logica pura)
+- [x] Definir puertos (OrderRepository, Notifier)
+- [x] Implementar caso de uso CreateOrderService
+- [x] DTOs con Pydantic (CreateOrderInput, OrderOutput)
+- [x] Adaptadores InMemory y Fake
+- [x] Adaptador HTTP con httpx (opcional)
+- [x] Tests: unit, contract, e2e
+- [x] Correr ruff y mypy
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - Alistair Cockburn — Hexagonal Architecture: https://alistair.cockburn.us/hexagonal-architecture/

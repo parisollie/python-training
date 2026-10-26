@@ -192,17 +192,17 @@ reimplementacion pequena para comparar con el proyecto final.
             return self.presenter.present(order)
 
 ## Checklist
-- [ ] Crear estructura del laboratorio (domain/application/infrastructure)
-- [ ] Implementar Unit of Work (Protocol + implementaciones)
-- [ ] Implementar Event Handlers
-- [ ] Implementar Presenter
-- [ ] Implementar Controller (puro, sin FastAPI)
-- [ ] Reimplementar CreateOrderService usando UoW
-- [ ] Wiring con FastAPI al final
-- [ ] Tests: unit, integration, e2e
-- [ ] Correr ruff y mypy
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio (domain/application/infrastructure)
+- [x] Implementar Unit of Work (Protocol + implementaciones)
+- [x] Implementar Event Handlers
+- [x] Implementar Presenter
+- [x] Implementar Controller (puro, sin FastAPI)
+- [x] Reimplementar CreateOrderService usando UoW
+- [x] Wiring con FastAPI al final
+- [x] Tests: unit, integration, e2e
+- [x] Correr ruff y mypy
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - Robert C. Martin — Clean Architecture (libro, 2017)

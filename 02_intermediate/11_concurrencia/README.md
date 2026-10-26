@@ -143,16 +143,16 @@ Comparativa de tiempos:
 - Scripts simples de 1-2 requests (usa sync)
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] Implementar fetcher sincrono (baseline)
-- [ ] Implementar fetcher con threads
-- [ ] Implementar fetcher con asyncio + semaforo
-- [ ] Implementar calculo CPU-bound con procesos
-- [ ] Medir y comparar
-- [ ] Tests con pytest + httpx.MockTransport
-- [ ] Correr ruff y mypy
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio
+- [x] Implementar fetcher sincrono (baseline)
+- [x] Implementar fetcher con threads
+- [x] Implementar fetcher con asyncio + semaforo
+- [x] Implementar calculo CPU-bound con procesos
+- [x] Medir y comparar
+- [x] Tests con pytest + httpx.MockTransport
+- [x] Correr ruff y mypy
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - Python docs — threading: https://docs.python.org/3/library/threading.html

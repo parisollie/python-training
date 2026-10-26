@@ -15,11 +15,13 @@ Comparativa práctica de 4 modelos de concurrencia en Python contra la API de Ri
 
 ## Estructura
 
+```text
 lab_11_concurrencia/
 ├── README.md              ← este archivo
 ├── fetchers.py            ← 4 fetchers + compute + measure
 └── tests/
     └── test_fetchers.py   ← 16 tests con MockTransport
+```
 
 ## Modelos de concurrencia
 

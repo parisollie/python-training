@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package orders;
+
+// ============================================
+// Servicio
+// ============================================
+
+service OrderService {
+  rpc CreateOrder (CreateOrderRequest) returns (OrderResponse);
+  rpc GetOrder (GetOrderRequest) returns (OrderResponse);
+  rpc ListOrders (ListOrdersRequest) returns (ListOrdersResponse);
+  rpc ConfirmOrder (OrderIdRequest) returns (OrderResponse);
+  rpc CancelOrder (CancelOrderRequest) returns (OrderResponse);
+}
+
+// ============================================
+// Mensajes de entrada
+// ============================================
+
+message CreateOrderRequest {
+  string customer_email = 1;
+  repeated OrderItemInput items = 2;
+}
+
+message OrderItemInput {
+  int32 character_id = 1;
+  int32 quantity = 2;
+}
+
+message GetOrderRequest {
+  string order_id = 1;
+}
+
+message OrderIdRequest {
+  string order_id = 1;
+}
+
+message CancelOrderRequest {
+  string order_id = 1;
+  string reason = 2;
+}
+
+message ListOrdersRequest {
+  // Si se especifica, filtra por cliente
+  string customer_email = 1;
+}
+
+// ============================================
+// Mensajes de salida
+// ============================================
+
+message OrderResponse {
+  string id = 1;
+  string customer_email = 2;
+  string status = 3;
+  repeated OrderItemOutput items = 4;
+  double subtotal = 5;
+  double tax = 6;
+  double total = 7;
+  int32 total_items = 8;
+}
+
+message OrderItemOutput {
+  int32 character_id = 1;
+  string character_name = 2;
+  int32 quantity = 3;
+  double unit_price = 4;
+  double subtotal = 5;
+}
+
+message ListOrdersResponse {
+  repeated OrderResponse orders = 1;
+}

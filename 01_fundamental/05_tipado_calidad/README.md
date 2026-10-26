@@ -126,14 +126,14 @@ Anotar tipos avanzados en el código del laboratorio 04 (orders):
     x = algo_raro()  # noqa: ANN001  # Justificación: viene de librería sin stubs
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] Anotar con Literal
-- [ ] Anotar con TypedDict
-- [ ] Anotar con Protocol
-- [ ] Correr mypy strict
-- [ ] Correr ruff
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio
+- [x] Anotar con Literal
+- [x] Anotar con TypedDict
+- [x] Anotar con Protocol
+- [x] Correr mypy strict
+- [x] Correr ruff
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - Python docs — typing: https://docs.python.org/3/library/typing.html

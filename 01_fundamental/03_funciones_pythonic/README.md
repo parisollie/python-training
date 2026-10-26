@@ -108,14 +108,14 @@ Tres ejercicios practicos que cubren los tres temas principales:
         sum(range(1_000_000))
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] Escribir decorador de reintentos con backoff
-- [ ] Escribir generador por lotes
-- [ ] Escribir context manager de temporizacion
-- [ ] Escribir tests con pytest
-- [ ] Correr ruff y mypy
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio
+- [x] Escribir decorador de reintentos con backoff
+- [x] Escribir generador por lotes
+- [x] Escribir context manager de temporizacion
+- [x] Escribir tests con pytest
+- [x] Correr ruff y mypy
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - Python docs — Funciones: https://docs.python.org/3/tutorial/controlflow.html#defining-functions

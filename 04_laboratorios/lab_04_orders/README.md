@@ -12,6 +12,7 @@ Modela órdenes de compra con dos enfoques complementarios:
 
 ## Estructura
 
+```text
 lab_04_orders/
 ├── README.md              ← este archivo
 ├── models.py              ← dataclasses Order y OrderItem
@@ -19,6 +20,7 @@ lab_04_orders/
 └── tests/
     ├── test_models.py     ← 16 tests
     └── test_schemas.py    ← 11 tests
+```
 
 ## Instalación
 

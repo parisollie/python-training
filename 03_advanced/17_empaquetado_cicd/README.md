@@ -304,15 +304,15 @@ https://github.com/parisollie/python-training/actions
 - [ ] Imagen final < 500 MB (idealmente)
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] `poetry build` genera wheel + sdist
-- [ ] Verificar el contenido del wheel (`unzip -l dist/*.whl`)
-- [ ] Instalar el wheel en un venv limpio y probarlo
-- [ ] Extender CI con job `publish` (trigger tag v*)
-- [ ] Crear tag v0.1.0 y push
-- [ ] Verificar que el workflow corre en GitHub Actions
-- [ ] Documentar el proceso de release en el README
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio
+- [x] `poetry build` genera wheel + sdist
+- [x] Verificar el contenido del wheel (`unzip -l dist/*.whl`)
+- [x] Instalar el wheel en un venv limpio y probarlo
+- [x] Extender CI con job `publish` (trigger tag v*)
+- [x] Crear tag v0.1.0 y push
+- [x] Verificar que el workflow corre en GitHub Actions
+- [x] Documentar el proceso de release en el README
+- [x] Commit del modulo
 
 ## Referencias
 - PEP 440 — Version Identification: https://peps.python.org/pep-0440/

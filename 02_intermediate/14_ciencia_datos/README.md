@@ -133,17 +133,17 @@ Pipeline completo de ML:
     loaded.predict(X_new)
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] Instalar numpy, pandas, scikit-learn, joblib
-- [ ] Cargar y limpiar datos con Pandas
-- [ ] Feature engineering
-- [ ] Entrenar modelo (clasificador)
-- [ ] Evaluar con metricas
-- [ ] Guardar con joblib
-- [ ] Cargar y predecir
-- [ ] Tests con pytest
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio
+- [x] Instalar numpy, pandas, scikit-learn, joblib
+- [x] Cargar y limpiar datos con Pandas
+- [x] Feature engineering
+- [x] Entrenar modelo (clasificador)
+- [x] Evaluar con metricas
+- [x] Guardar con joblib
+- [x] Cargar y predecir
+- [x] Tests con pytest
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - NumPy docs: https://numpy.org/doc/

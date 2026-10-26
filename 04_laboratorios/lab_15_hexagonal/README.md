@@ -10,6 +10,7 @@ Sistema de órdenes con **Ports & Adapters**: dominio puro, puertos estables y a
 
 ## Estructura
 
+```text
 lab_15_hexagonal/
 ├── README.md              ← este archivo
 ├── domain/                ← núcleo (puro Python)
@@ -31,6 +32,7 @@ lab_15_hexagonal/
     ├── test_value_objects.py       ← 18 tests
     ├── test_order_entity.py        ← 17 tests
     └── test_create_order_service.py ← 13 tests
+```
 
 ## Diagrama de capas
 

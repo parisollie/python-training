@@ -115,14 +115,14 @@ Modelar ordenes de compra con dos enfoques:
     print(repr(p1))     # Precio(monto=10.0)
 
 ## Checklist
-- [ ] Instalar Pydantic
-- [ ] Crear estructura del laboratorio
-- [ ] Implementar dataclass Order
-- [ ] Implementar modelos Pydantic OrderIn/OrderOut
-- [ ] Escribir tests con pytest
-- [ ] Correr ruff y mypy
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Instalar Pydantic
+- [x] Crear estructura del laboratorio
+- [x] Implementar dataclass Order
+- [x] Implementar modelos Pydantic OrderIn/OrderOut
+- [x] Escribir tests con pytest
+- [x] Correr ruff y mypy
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - Python docs — Clases: https://docs.python.org/3/tutorial/classes.html

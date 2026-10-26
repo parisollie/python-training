@@ -78,14 +78,14 @@ match status:
         print("Desconocido")
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] Descargar JSON de la API de Rick and Morty
-- [ ] Escribir script main.py
-- [ ] Aplicar tipos y estructuras de datos
-- [ ] Manejar excepciones correctamente
-- [ ] Correr ruff y mypy
-- [ ] Escribir tests con pytest
-- [ ] Commit del módulo
+- [x] Crear estructura del laboratorio
+- [x] Descargar JSON de la API de Rick and Morty
+- [x] Escribir script main.py
+- [x] Aplicar tipos y estructuras de datos
+- [x] Manejar excepciones correctamente
+- [x] Correr ruff y mypy
+- [x] Escribir tests con pytest
+- [x] Commit del módulo
 
 ## Referencias
 - [Python docs — Estructuras de datos](https://docs.python.org/3/tutorial/datastructures.html)

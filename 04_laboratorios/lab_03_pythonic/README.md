@@ -12,6 +12,7 @@ Tres ejercicios prácticos que cubren los temas del Módulo 03:
 
 ## Estructura
 
+```text
 lab_03_pythonic/
 ├── README.md              ← este archivo
 ├── retry.py               ← decorador de reintentos
@@ -21,6 +22,7 @@ lab_03_pythonic/
     ├── test_retry.py      ← 9 tests
     ├── test_batching.py   ← 11 tests
     └── test_timer.py      ← 7 tests
+```
 
 ## Instalación
 

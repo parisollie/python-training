@@ -28,6 +28,9 @@ pydantic-settings = "^2.16.0"
 typer = "^0.27.3"
 rich = "^15.0.0"
 urllib3 = "^2.8.0"
+grpcio = "^1.85.0"
+grpcio-tools = "^1.85.0"
+redis = "^8.1.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.16.10"
@@ -43,6 +46,7 @@ hypothesis = "^6.169.1"
 pytest-asyncio = "^1.4.0"
 pandas-stubs = "^3.0.5.260914"
 pip-audit = "^2.10.1"
+types-grpcio = "^1.84.0.20261021"
 
 [tool.poetry.scripts]
 rickmorty-orders = "rickmorty_orders.cli.main:app"
@@ -57,6 +61,15 @@ target-version = "py312"
 exclude = [
     "05_proyecto_final/rickmorty_orders/alembic/versions/",
 ]
+
+
+# Los stubs de gRPC (generados por protoc) no se editan a mano.
+# Los nombres CamelCase de RPC son obligatorios por el contrato .proto,
+# por lo que N802 no aplica a server.py (donde heredamos esos nombres).
+[tool.ruff.lint.per-file-ignores]
+"**/orders_pb2.py" = ["E501"]
+"**/orders_pb2_grpc.py" = ["N802", "E501"]
+"**/grpc/server.py" = ["N802"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM"]
@@ -76,7 +89,20 @@ warn_return_any = true
 warn_unused_configs = true
 exclude = [
     "^05_proyecto_final/rickmorty_orders/alembic/versions/",
+    "^05_proyecto_final/rickmorty_orders/src/rickmorty_orders/grpc/orders_pb2\\.py$",
+    "^05_proyecto_final/rickmorty_orders/src/rickmorty_orders/grpc/orders_pb2_grpc\\.py$",
 ]
+
+# Stubs generados por protoc: no tienen anotaciones, tratarlos como Any.
+[[tool.mypy.overrides]]
+module = ["rickmorty_orders.grpc.orders_pb2", "rickmorty_orders.grpc.orders_pb2_grpc"]
+ignore_missing_imports = true
+follow_imports = "skip"
+
+# Los imports opcionales (joblib/sklearn) se marcan sin stubs.
+[[tool.mypy.overrides]]
+module = ["joblib.*", "sklearn.*"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["04_laboratorios", "05_proyecto_final"]
@@ -85,7 +111,3 @@ python_classes = ["Test*"]
 python_functions = ["test_*"]
 addopts = "-v --tb=short"
 asyncio_mode = "auto"
-
-[[tool.mypy.overrides]]
-module = ["joblib.*", "sklearn.*"]
-ignore_missing_imports = true

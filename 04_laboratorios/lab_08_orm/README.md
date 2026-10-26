@@ -11,6 +11,7 @@ Modela usuarios, órdenes e items con SQLAlchemy 2.0 (estilo moderno) y prueba e
 
 ## Estructura
 
+```text
 lab_08_orm/
 ├── README.md              ← este archivo
 ├── models.py              ← User, Order, OrderItem (SQLAlchemy 2.0)
@@ -19,6 +20,7 @@ lab_08_orm/
     ├── conftest.py        ← fixture engine SQLite en memoria
     ├── test_models.py     ← 5 tests de modelos
     └── test_repository.py ← 17 tests de repositorio
+```
 
 ## Modelos (models.py)
 

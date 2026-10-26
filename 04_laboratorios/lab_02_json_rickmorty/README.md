@@ -10,12 +10,14 @@ Script que lee, filtra y agrega datos de la API de Rick and Morty, con manejo ro
 
 ## Estructura
 
+```text
 lab_02_json_rickmorty/
 ├── README.md              ← este archivo
 ├── main.py                ← script principal
 ├── data/
 │   └── characters.json    ← datos de la API (20 personajes)
 └── tests/                 ← tests con pytest (pendiente)
+```
 
 ## Instalación
 

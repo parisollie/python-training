@@ -14,6 +14,7 @@
 
 ## Estructura
 
+```text
 lab_13_patterns/
 ├── README.md              ← este archivo
 ├── strategy.py            ← Strategy: 4 calculadoras de precio
@@ -27,6 +28,7 @@ lab_13_patterns/
     ├── test_decorator.py  ← 13 tests
     ├── test_adapter.py    ← 9 tests
     └── test_factory.py    ← 14 tests
+```
 
 ## 1. Strategy — calculadoras de precio
 

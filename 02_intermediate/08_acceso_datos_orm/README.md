@@ -158,15 +158,15 @@ Modelos User/Order/OrderItem con SQLAlchemy 2.0:
     )
 
 ## Checklist
-- [ ] Crear estructura del laboratorio
-- [ ] Instalar SQLAlchemy y Alembic
-- [ ] Definir modelos (User, Order, OrderItem)
-- [ ] Configurar engine SQLite en memoria
-- [ ] Implementar CRUD basico
-- [ ] Escribir tests con pytest
-- [ ] Correr ruff y mypy
-- [ ] Documentar en README del laboratorio
-- [ ] Commit del modulo
+- [x] Crear estructura del laboratorio
+- [x] Instalar SQLAlchemy y Alembic
+- [x] Definir modelos (User, Order, OrderItem)
+- [x] Configurar engine SQLite en memoria
+- [x] Implementar CRUD basico
+- [x] Escribir tests con pytest
+- [x] Correr ruff y mypy
+- [x] Documentar en README del laboratorio
+- [x] Commit del modulo
 
 ## Referencias
 - SQLAlchemy docs: https://docs.sqlalchemy.org/
