@@ -25,7 +25,9 @@ este repo.
 <details>
 <summary><b>📘 Fundamental (7 módulos)</b></summary>
 
-## Módulo 1 — Entorno y herramientas
+<details>
+<summary><b>Módulo 1 — Entorno y herramientas</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [01_fundamental/01_entorno_herramientas](01_fundamental/01_entorno_herramientas/README.md)
@@ -47,7 +49,11 @@ este repo.
 
 ---
 
-## Módulo 2 — Fundamentos del lenguaje
+</details>
+
+<details>
+<summary><b>Módulo 2 — Fundamentos del lenguaje</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [01_fundamental/02_fundamentos_lenguaje](01_fundamental/02_fundamentos_lenguaje/README.md)
@@ -70,7 +76,11 @@ este repo.
 
 ---
 
-## Módulo 3 — Funciones y programación "pythonic"
+</details>
+
+<details>
+<summary><b>Módulo 3 — Funciones y programación "pythonic"</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [01_fundamental/03_funciones_pythonic](01_fundamental/03_funciones_pythonic/README.md)
@@ -93,7 +103,11 @@ este repo.
 
 ---
 
-## Módulo 4 — Objetos y modelos de datos
+</details>
+
+<details>
+<summary><b>Módulo 4 — Objetos y modelos de datos</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [01_fundamental/04_objetos_modelos](01_fundamental/04_objetos_modelos/README.md)
@@ -114,7 +128,11 @@ este repo.
 
 ---
 
-## Módulo 5 — Tipado estático opcional y calidad
+</details>
+
+<details>
+<summary><b>Módulo 5 — Tipado estático opcional y calidad</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [01_fundamental/05_tipado_calidad](01_fundamental/05_tipado_calidad/README.md)
@@ -136,7 +154,11 @@ este repo.
 
 ---
 
-## Módulo 6 — Librería estándar y E/S
+</details>
+
+<details>
+<summary><b>Módulo 6 — Librería estándar y E/S</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [01_fundamental/06_libreria_estandar](01_fundamental/06_libreria_estandar/README.md)
@@ -158,7 +180,11 @@ este repo.
 
 ---
 
-## Módulo 7 — HTTP y consumo de APIs (Smocker)
+</details>
+
+<details>
+<summary><b>Módulo 7 — HTTP y consumo de APIs (Smocker)</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [01_fundamental/07_http_apis_rickmorty](01_fundamental/07_http_apis_rickmorty/README.md)
@@ -178,13 +204,16 @@ este repo.
 
 ---
 
+</details>
 
 </details>
 
 <details>
 <summary><b>📗 Intermediate (8 módulos)</b></summary>
 
-## Módulo 8 — Acceso a datos y ORM
+<details>
+<summary><b>Módulo 8 — Acceso a datos y ORM</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [02_intermediate/08_acceso_datos_orm](02_intermediate/08_acceso_datos_orm/README.md)
@@ -205,7 +234,11 @@ este repo.
 
 ---
 
-## Módulo 9 — APIs web con FastAPI (Automatización)
+</details>
+
+<details>
+<summary><b>Módulo 9 — APIs web con FastAPI (Automatización)</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [02_intermediate/09_fastapi_automatizacion](02_intermediate/09_fastapi_automatizacion/README.md)
@@ -226,7 +259,11 @@ este repo.
 
 ---
 
-## Módulo 10 — Pruebas y TDD
+</details>
+
+<details>
+<summary><b>Módulo 10 — Pruebas y TDD</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [02_intermediate/10_pruebas_tdd](02_intermediate/10_pruebas_tdd/README.md)
@@ -247,7 +284,11 @@ este repo.
 
 ---
 
-## Módulo 11 — Concurrencia y rendimiento
+</details>
+
+<details>
+<summary><b>Módulo 11 — Concurrencia y rendimiento</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [02_intermediate/11_concurrencia](02_intermediate/11_concurrencia/README.md)
@@ -269,7 +310,11 @@ este repo.
 
 ---
 
-## Módulo 12 — Principios SOLID aplicados en Python
+</details>
+
+<details>
+<summary><b>Módulo 12 — Principios SOLID aplicados en Python</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [02_intermediate/12_solid](02_intermediate/12_solid/README.md)
@@ -289,7 +334,11 @@ este repo.
 
 ---
 
-## Módulo 13 — Patrones de diseño
+</details>
+
+<details>
+<summary><b>Módulo 13 — Patrones de diseño</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [02_intermediate/13_patrones_diseno](02_intermediate/13_patrones_diseno/README.md)
@@ -310,7 +359,11 @@ este repo.
 
 ---
 
-## Módulo 14 — Ciencia de datos
+</details>
+
+<details>
+<summary><b>Módulo 14 — Ciencia de datos</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [02_intermediate/14_ciencia_datos](02_intermediate/14_ciencia_datos/README.md)
@@ -330,7 +383,11 @@ este repo.
 
 ---
 
-## Módulo 15 — Arquitectura Hexagonal (Puertos y Adaptadores)
+</details>
+
+<details>
+<summary><b>Módulo 15 — Arquitectura Hexagonal (Puertos y Adaptadores)</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [02_intermediate/15_arquitectura_hexagonal](02_intermediate/15_arquitectura_hexagonal/README.md)
@@ -352,13 +409,16 @@ este repo.
 
 ---
 
+</details>
 
 </details>
 
 <details>
 <summary><b>📙 Advanced (5 módulos)</b></summary>
 
-## Módulo 16 — Arquitectura limpia
+<details>
+<summary><b>Módulo 16 — Arquitectura limpia</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [03_advanced/16_arquitectura_limpia](03_advanced/16_arquitectura_limpia/README.md)
@@ -379,7 +439,11 @@ este repo.
 
 ---
 
-## Módulo 17 — Empaquetado, distribución y CI/CD
+</details>
+
+<details>
+<summary><b>Módulo 17 — Empaquetado, distribución y CI/CD</b></summary>
+
 
 _(aplicado directamente sobre el proyecto final)_
 
@@ -401,7 +465,11 @@ _(aplicado directamente sobre el proyecto final)_
 
 ---
 
-## Módulo 18 — CLI y automatización
+</details>
+
+<details>
+<summary><b>Módulo 18 — CLI y automatización</b></summary>
+
 
 **Estado:** ✅ Completado
 **Ubicación:** [03_advanced/18_cli_automatizacion](03_advanced/18_cli_automatizacion/README.md)
@@ -421,7 +489,11 @@ _(aplicado directamente sobre el proyecto final)_
 
 ---
 
-## Módulo 19 — Seguridad y mantenimiento
+</details>
+
+<details>
+<summary><b>Módulo 19 — Seguridad y mantenimiento</b></summary>
+
 
 _(agregado al temario original — no existía como módulo 19; aplicado directamente sobre el proyecto final)_
 
@@ -443,7 +515,11 @@ _(agregado al temario original — no existía como módulo 19; aplicado directa
 
 ---
 
-## Módulo 20 — Interoperabilidad y ecosistema mixto
+</details>
+
+<details>
+<summary><b>Módulo 20 — Interoperabilidad y ecosistema mixto</b></summary>
+
 
 _(aplicado directamente sobre el proyecto final)_
 
@@ -465,6 +541,7 @@ _(aplicado directamente sobre el proyecto final)_
 
 ---
 
+</details>
 
 </details>
 
