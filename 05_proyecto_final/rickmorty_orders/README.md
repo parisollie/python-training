@@ -781,17 +781,17 @@ Cuando `pip-audit` o Trivy detecten una vulnerabilidad **sin fix disponible**:
 
 ## Criterios de éxito (rúbrica)
 
-- [ ] Arquitectura: capas separadas, regla de dependencia respetada
-- [ ] Dominio: entidades + VOs + invariantes + eventos
-- [ ] Puertos y adaptadores: intercambiables, contract tests
-- [ ] API: endpoints documentados, validados, con JWT
-- [ ] Testing: unit + contract + integration + e2e; cobertura > 85%
-- [ ] Calidad: ruff + mypy strict sin errores
-- [ ] CI/CD: pipeline en verde (lint + tests + build)
-- [ ] Seguridad: pydantic-settings, pip-audit sin hallazgos críticos
-- [ ] Observabilidad: logging estructurado
-- [ ] Rendimiento: endpoints < 200ms p95
-- [ ] Documentación: README + diagramas
+- [x] Arquitectura: capas separadas, regla de dependencia respetada
+- [x] Dominio: entidades + VOs + invariantes + eventos
+- [x] Puertos y adaptadores: intercambiables, contract tests
+- [ ] API: endpoints documentados, validados, con JWT _(JWT preparado en config, no implementado)_
+- [x] Testing: unit + contract + integration + e2e; cobertura > 85%
+- [x] Calidad: ruff + mypy strict sin errores
+- [x] CI/CD: pipeline en verde (lint + tests + build)
+- [x] Seguridad: pydantic-settings, pip-audit sin hallazgos críticos
+- [ ] Observabilidad: logging estructurado _(logging estándar, no JSON)_
+- [ ] Rendimiento: endpoints < 200ms p95 _(no medido)_
+- [x] Documentación: README + diagramas
 
 ## Referencias
 
