@@ -22,7 +22,8 @@ este repo.
 
 ---
 
-# Fundamental
+<details>
+<summary><b>📘 Fundamental (7 módulos)</b></summary>
 
 ## Módulo 1 — Entorno y herramientas
 
@@ -177,7 +178,11 @@ este repo.
 
 ---
 
-# Intermediate
+
+</details>
+
+<details>
+<summary><b>📗 Intermediate (8 módulos)</b></summary>
 
 ## Módulo 8 — Acceso a datos y ORM
 
@@ -347,7 +352,11 @@ este repo.
 
 ---
 
-# Advanced
+
+</details>
+
+<details>
+<summary><b>📙 Advanced (5 módulos)</b></summary>
 
 ## Módulo 16 — Arquitectura limpia
 
@@ -456,7 +465,11 @@ _(aplicado directamente sobre el proyecto final)_
 
 ---
 
-# Proyecto final integrador (Arquitectura Hexagonal/Limpia)
+
+</details>
+
+<details>
+<summary><b>🏆 Proyecto final integrador (7 fases)</b></summary>
 
 **Ubicación:** [05_proyecto_final/rickmorty_orders](05_proyecto_final/rickmorty_orders/README.md)
 
@@ -489,6 +502,9 @@ observabilidad, rendimiento y documentación).
 - Auditoría con pip-audit + Trivy
 
 ---
+
+
+</details>
 
 ## Notas sobre la numeración
 
