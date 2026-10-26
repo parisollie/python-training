@@ -372,6 +372,8 @@ este repo.
 
 ## Módulo 17 — Empaquetado, distribución y CI/CD
 
+_(aplicado directamente sobre el proyecto final)_
+
 **Estado:** ✅ Completado
 **Ubicación:** [03_advanced/17_empaquetado_cicd](03_advanced/17_empaquetado_cicd/README.md)
 
@@ -412,7 +414,7 @@ este repo.
 
 ## Módulo 19 — Seguridad y mantenimiento
 
-_(agregado al temario original, cubierto directamente sobre el proyecto final)_
+_(agregado al temario original — no existía como módulo 19; aplicado directamente sobre el proyecto final)_
 
 **Estado:** ✅ Completado
 **Ubicación:** [03_advanced/19_seguridad_mantenimiento](03_advanced/19_seguridad_mantenimiento/README.md)
@@ -432,7 +434,9 @@ _(agregado al temario original, cubierto directamente sobre el proyecto final)_
 
 ---
 
-## Módulo 20 — Interoperabilidad y ecosistema mixto (opcional)
+## Módulo 20 — Interoperabilidad y ecosistema mixto
+
+_(aplicado directamente sobre el proyecto final)_
 
 **Estado:** ✅ Completado
 **Ubicación:** [03_advanced/20_interoperabilidad](03_advanced/20_interoperabilidad/README.md)
